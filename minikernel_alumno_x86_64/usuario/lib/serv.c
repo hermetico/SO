@@ -44,7 +44,6 @@ int escribir(char *texto, unsigned int longi){
 	return llamsis(ESCRIBIR, 2, (long)texto, (long)longi);
 }
 int get_pid(){
-            
-        return llamsis(GET_PID, 0); // no recibe argumentos de entrada
+        return llamsis(GET_PID, 0); /* no recibe argumentos de entrada*/
 }
 
