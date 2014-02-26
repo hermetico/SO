@@ -18,9 +18,15 @@
 int main(){
 	int i;
 
-	for (i=0; i<TOT_ITER; i++)
-		printf("simplon: i %d\n", i);
-
-	printf("simplon: termina\n");
+	//for (i=0; i<TOT_ITER; i++)
+	//	printf("simplon: i %d\n", i);
+                                 
+	printf("simplon: comienza\n");
+        
+        i = get_pid();
+        
+	printf("PID del simplon: %d\n", i);
+	
+        printf("simplon: termina\n");
 	return 0;
 }

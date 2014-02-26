@@ -214,12 +214,17 @@ static void int_reloj(){
  */
 static void tratar_llamsis(){
 	int nserv, res;
-
+        // leemos la posicion 0 del registro
+        // que es donde esta el numero del servicio
+        // a ejecutar
 	nserv=leer_registro(0);
+        // si el numero esta dentro del rango de
+        // los registros definidos
 	if (nserv<NSERVICIOS)
 		res=(tabla_servicios[nserv].fservicio)();
 	else
 		res=-1;		/* servicio no existente */
+        
 	escribir_registro(0,res);
 	return;
 }
@@ -295,6 +300,16 @@ int sis_crear_proceso(){
 	res=crear_tarea(prog);
 	return res;
 }
+/*
+ * Tratamiento de llamada al sistema mostrar id del proceso actual
+ */
+int sis_get_pid(){
+    
+    printk("-> A DINS DE SIS_GET_PID\n");
+    return p_proc_actual->id;
+
+}
+
 
 /*
  * Tratamiento de llamada al sistema escribir. Llama simplemente a la

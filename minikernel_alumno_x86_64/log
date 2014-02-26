@@ -1,0 +1,67 @@
+init: comienza
+-> PROC 0: CREAR PROCESO
+-> PROC 0: CREAR PROCESO
+-> PROC 0: CREAR PROCESO
+-> PROC 0: CREAR PROCESO
+Error creando noexiste
+init: termina
+-> FIN PROCESO 0
+-> C.CONTEXTO POR FIN: de 0 a 1
+simplon: comienza
+-> A DINS DE SIS_GET_PID
+PID del simplon: 1
+simplon: termina
+-> FIN PROCESO 1
+-> C.CONTEXTO POR FIN: de 1 a 2
+excep_arit: i 0 
+excep_arit: i 1 
+excep_arit: i 2 
+excep_arit: i 3 
+excep_arit: i 4 
+excep_arit: i 5 
+excep_arit: i 6 
+excep_arit: i 7 
+excep_arit: i 8 
+excep_arit: i 9 
+excep_arit: i 10 
+excep_arit: i 11 
+excep_arit: i 12 
+excep_arit: i 13 
+excep_arit: i 14 
+excep_arit: i 15 
+excep_arit: i 16 
+excep_arit: i 17 
+excep_arit: i 18 
+excep_arit: i 19 
+excep_arit: i 20 
+excep_arit: i 21 
+-> EXCEPCION ARITMETICA EN PROC 2
+-> C.CONTEXTO POR FIN: de 2 a 3
+-> PROC 3: CREAR PROCESO
+excep_mem: i 0
+excep_mem: i 1
+excep_mem: i 2
+excep_mem: i 3
+excep_mem: i 4
+excep_mem: i 5
+excep_mem: i 6
+excep_mem: i 7
+excep_mem: i 8
+excep_mem: i 9
+excep_mem: i 10
+excep_mem: i 11
+excep_mem: i 12
+excep_mem: i 13
+excep_mem: i 14
+excep_mem: i 15
+excep_mem: i 16
+excep_mem: i 17
+excep_mem: i 18
+excep_mem: i 19
+-> EXCEPCION DE MEMORIA EN PROC 3
+-> C.CONTEXTO POR FIN: de 3 a 0
+simplon: comienza
+-> A DINS DE SIS_GET_PID
+PID del simplon: 0
+simplon: termina
+-> FIN PROCESO 0
