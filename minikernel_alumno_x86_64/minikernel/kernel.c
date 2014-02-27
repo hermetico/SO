@@ -300,16 +300,29 @@ int sis_crear_proceso(){
 	res=crear_tarea(prog);
 	return res;
 }
+
 /*
- * Tratamiento de llamada al sistema mostrar id del proceso actual
+ * Tratamiento de llamada al sistema get_pid. Muestra el id del 
+ * proceso actual
  */
 int sis_get_pid(){
-    
     printk("-> A DINS DE SIS_GET_PID\n");
     return p_proc_actual->id;
 
 }
 
+/*
+ * Tratamiento de llamada al sistema dormir. Pone el proceso actual 
+ * a dormir y pasa al siguiente proceso
+ */
+int sis_dormir(){
+
+    unsigned int segundos;
+    segundos=(unsigned int)leer_registro(1);
+
+    printk("-> PROC %d A DORMIR %d SEGUNDOS\n",p_proc_actual->id, segundos);
+    return 0;
+}
 
 /*
  * Tratamiento de llamada al sistema escribir. Llama simplemente a la

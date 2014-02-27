@@ -46,4 +46,9 @@ int escribir(char *texto, unsigned int longi){
 int get_pid(){
         return llamsis(GET_PID, 0); /* no recibe argumentos de entrada*/
 }
+int dormir(unsigned int segundos){
+        /*  pasamos segundos como long ya que las demas hacen lo mismo */
+        return llamsis(DORMIR, 1, (long)segundos);
+}
+
 

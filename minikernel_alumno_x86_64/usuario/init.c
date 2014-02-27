@@ -34,6 +34,13 @@ int main(){
 	if (crear_proceso("noexiste")<0)
 		printf("Error creando noexiste\n");
 
-	printf("init: termina\n");
+    /* Este programa solicita que lo pongan a dormir */
+	if (crear_proceso("dormilon")<0)
+                printf("Error creando dormilon\n");
+	
+	if (crear_proceso("simplon")<0)
+               printf("Error creando simplon\n");
+
+    printf("init: termina\n");
 	return 0; 
 }

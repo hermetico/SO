@@ -70,6 +70,11 @@ BCP tabla_procs[MAX_PROC];
  */
 lista_BCPs lista_listos= {NULL, NULL};
 
+
+/*
+ * Variable global que representa la cola de procesos dormidos
+ */
+lista_BCPs lista_dormidos= {NULL, NULL};
 /*
  *
  * Definición del tipo que corresponde con una entrada en la tabla de
@@ -88,6 +93,7 @@ int sis_crear_proceso();
 int sis_terminar_proceso();
 int sis_escribir();
 int sis_get_pid();
+int sis_dormir();
 
 /*
  * Variable global que contiene las rutinas que realizan cada llamada
@@ -95,7 +101,8 @@ int sis_get_pid();
 servicio tabla_servicios[NSERVICIOS]={	{sis_crear_proceso},
 					{sis_terminar_proceso},
 					{sis_escribir},
-					{sis_get_pid}};
+					{sis_get_pid},
+					{sis_dormir}};
 
 #endif /* _KERNEL_H */
 

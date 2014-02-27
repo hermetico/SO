@@ -4,6 +4,8 @@ init: comienza
 -> PROC 0: CREAR PROCESO
 -> PROC 0: CREAR PROCESO
 Error creando noexiste
+-> PROC 0: CREAR PROCESO
+-> PROC 0: CREAR PROCESO
 init: termina
 -> FIN PROCESO 0
 -> C.CONTEXTO POR FIN: de 0 a 1
@@ -59,7 +61,19 @@ excep_mem: i 17
 excep_mem: i 18
 excep_mem: i 19
 -> EXCEPCION DE MEMORIA EN PROC 3
--> C.CONTEXTO POR FIN: de 3 a 0
+-> C.CONTEXTO POR FIN: de 3 a 4
+Dormilon: comienza
+-> PROC 4 A DORMIR 5 segundos 
+proceso dormido con exito
+Dormilon: termina
+-> FIN PROCESO 4
+-> C.CONTEXTO POR FIN: de 4 a 5
+simplon: comienza
+-> A DINS DE SIS_GET_PID
+PID del simplon: 5
+simplon: termina
+-> FIN PROCESO 5
+-> C.CONTEXTO POR FIN: de 5 a 0
 simplon: comienza
 -> A DINS DE SIS_GET_PID
 PID del simplon: 0

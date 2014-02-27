@@ -30,6 +30,7 @@ int crear_proceso(char *prog);
 int terminar_proceso();
 int escribir(char *texto, unsigned int longi);
 int get_pid();
+int dormir(unsigned int segundos);
 
 #endif /* SERVICIOS_H */
 
