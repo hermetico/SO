@@ -144,8 +144,77 @@ static void liberar_proceso(){
 			p_proc_anterior->id, p_proc_actual->id);
 
 	liberar_pila(p_proc_anterior->pila);
+    p_proc_actual->estado=EJECUCION;
 	cambio_contexto(NULL, &(p_proc_actual->contexto_regs));
         return; /* no debería llegar aqui */
+}
+
+/*
+ * Funcion auxiliar que pone un proceso en bloqueado
+ * y hace un cambio de contexto
+ *
+ */
+static void bloquear(lista_BCPs * lista){
+    BCP * p_proc_anterior, *p_proc_actual;
+    
+    /* bloqueamos el proceso y apuntamos a el */
+    p_proc_actual->estado=BLOQUEADO;
+    p_proc_anterior=p_proc_actual;
+    
+    /* lo elimino de lista listos y lo inserto en lista_dormidos */
+    eliminar_elem(&lista_listos, p_proc_anterior);
+    insertar_ultimo(&lista_dormidos, p_proc_anterior);
+
+    /* llamamos al planificador para recuperar el nuevo proceso */
+    p_proc_actual=planificador();
+
+	printk("-> C.CONTEXTO POR BLOQUEO: de %d a %d\n",
+			p_proc_anterior->id, p_proc_actual->id);
+    p_proc_actual->estado=EJECUCION;
+    cambio_contexto(&(p_proc_anterior->contexto_regs), 
+            &(p_proc_actual->contexto_regs);
+        return; /* no debería llegar aqui */
+}
+
+
+/*
+ * Funcion auxiliar que pone desbloquea de la lista que recibeo 
+ * y lo inserta en la lista listos
+ *
+ */
+static void desbloquear(BCP * proc, lista_BCPs * lista){
+	BCP *paux=lista->primero;
+
+	if (paux==proc)
+		eliminar_primero(&lista);
+	else {
+		for ( ; ((paux) && (paux->siguiente!=proc));
+			paux=paux->siguiente);
+		if (paux) {
+			if (lista->ultimo==paux->siguiente)
+				lista->ultimo=paux;
+			paux->siguiente=paux->siguiente->siguiente;
+		}
+	}
+}
+
+
+/*
+ * Funcion auxiliar que acutaliza los ticks de los procesos dormidos
+ * cuando detecta que uno no tiene ticks pendientes lo envia a desbloquear
+ *
+ */
+
+static void ajustar_dormidos(){
+	BCP *paux=lista_dormidos->primero;
+
+    for( ; paux != NULL; paux=paux->siguiente){
+        paux->nticks -= 1;
+        if(paux->nticks == 0){
+	        printk("-> DEBLOQUEANDO PROC: %d\n", paux->id);
+            desbloquear(paux, &lista_dormidos);
+        }
+    }
 }
 
 /*
@@ -205,6 +274,7 @@ static void int_terminal(){
 static void int_reloj(){
 
 	printk("-> TRATANDO INT. DE RELOJ\n");
+    ajustar_dormidos();
 
         return;
 }
@@ -319,8 +389,13 @@ int sis_dormir(){
 
     unsigned int segundos;
     segundos=(unsigned int)leer_registro(1);
-
     printk("-> PROC %d A DORMIR %d SEGUNDOS\n",p_proc_actual->id, segundos);
+    
+    /* insertamos el numero de ticks */
+    p_proc_actual->nticks = segundos * TICK
+    
+    /* solicitamos poner el proceso a dormir */
+    bloquear(lista_dormidos);
     return 0;
 }
 
@@ -379,6 +454,8 @@ int main(){
 	
 	/* activa proceso inicial */
 	p_proc_actual=planificador();
+    p_proc_actual->estado = EJECUCION;
+                    /* proceso que dejo de ejecutar, y proceso que paso a ejecutar*/
 	cambio_contexto(NULL, &(p_proc_actual->contexto_regs));
 	panico("S.O. reactivado inesperadamente");
 	return 0;
