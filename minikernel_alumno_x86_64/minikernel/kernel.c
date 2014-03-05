@@ -155,20 +155,22 @@ static void liberar_proceso(){
  *
  */
 static void bloquear(lista_BCPs * lista){
-    BCP * p_proc_anterior, *p_proc_actual;
+    BCP * p_proc_anterior;
     int nivel;
    
-    printk("------->B1\n");
     /* bloqueamos el proceso y apuntamos a el */
     p_proc_actual->estado=BLOQUEADO;
-    printk("------->B definido bloqueado\n");
     p_proc_anterior=p_proc_actual;
-    
-    printk("------->B2\n");
+
+    /* detenemos interrupciones */
+	nivel=fijar_nivel_int(NIVEL_3); /*nivel 3 detiene todas */
     /* lo elimino de lista listos y lo inserto en lista_dormidos */
+    
     eliminar_elem(&lista_listos, p_proc_anterior);
     insertar_ultimo(&lista_dormidos, p_proc_anterior);
-    printk("------->B3\n");
+
+    /*  volvemos a poner interrupciones como antes */
+	fijar_nivel_int(nivel);
 
     /* llamamos al planificador para recuperar el nuevo proceso */
     p_proc_actual=planificador();
@@ -189,18 +191,34 @@ static void bloquear(lista_BCPs * lista){
  */
 static void desbloquear(BCP * proc, lista_BCPs * lista){
 	BCP *paux=lista->primero;
-
-	if (paux==proc)
+    BCP *p_proc_listo = NULL;
+    /*  primero miramos si el que hay que desbloquear es el primero */
+	if (paux==proc){
+        p_proc_listo = proc;
 		eliminar_primero(lista);
-	else {
+    }else {
+        /* recorremos los procesos hasta encontrar el que queremos
+         * o llegar al final
+         */
 		for ( ; ((paux) && (paux->siguiente!=proc));
 			paux=paux->siguiente);
+
+        /* Ahora comprobamos si paux no es nulo */
 		if (paux) {
+            p_proc_listo = proc;
 			if (lista->ultimo==paux->siguiente)
 				lista->ultimo=paux;
 			paux->siguiente=paux->siguiente->siguiente;
 		}
 	}
+    /* Solo insertamos el proceso de nuevo a listo si esta en la
+     * lista que nos han pasado
+     * */
+    if(p_proc_listo){
+        p_proc_listo->estado=LISTO;
+        insertar_ultimo(&lista_listos, p_proc_listo);
+    }
+    return;
 }
 
 
@@ -213,13 +231,24 @@ static void desbloquear(BCP * proc, lista_BCPs * lista){
 static void ajustar_dormidos(){
 	BCP *paux=lista_dormidos.primero;
 
-    for( ; paux != NULL; paux=paux->siguiente){
-        paux->nticks -= 1;
+//    for( ; paux != NULL; paux=paux->siguiente){
+//        paux->nticks -= 1;
+//        if(paux->nticks == 0){
+//	        printk("-> DEBLOQUEANDO PROC: %d\n", paux->id);
+//            desbloquear(paux, &lista_dormidos);
+//        }
+//    }
+
+    while(paux){
+       // printk("Proceso id: %i, ticks remaining: %i\n", paux->id, paux->nticks);
+        paux->nticks--;
         if(paux->nticks == 0){
-	        printk("-> DEBLOQUEANDO PROC: %d\n", paux->id);
+	        printk("-> DESPERTANDO PROC: %d\n", paux->id);
             desbloquear(paux, &lista_dormidos);
         }
+        paux = paux->siguiente;
     }
+    return;
 }
 
 /*

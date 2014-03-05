@@ -21,7 +21,7 @@ int main(){
     i = dormir((unsigned int) SEGUNDOS);
     
     if (!i)
-        printf("proceso dormido con exito\n");
+        printf("proceso despertado con exito\n");
     
     printf("Dormilon: termina\n");
     return 0;
