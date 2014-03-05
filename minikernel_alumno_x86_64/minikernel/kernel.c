@@ -177,6 +177,7 @@ static void bloquear(lista_BCPs * lista){
 
 	printk("-> C.CONTEXTO POR BLOQUEO: de %d a %d\n",
 			p_proc_anterior->id, p_proc_actual->id);
+
     p_proc_actual->estado=EJECUCION;
     cambio_contexto(&(p_proc_anterior->contexto_regs), 
             &(p_proc_actual->contexto_regs));
@@ -190,34 +191,16 @@ static void bloquear(lista_BCPs * lista){
  *
  */
 static void desbloquear(BCP * proc, lista_BCPs * lista){
-	BCP *paux=lista->primero;
-    BCP *p_proc_listo = NULL;
-    /*  primero miramos si el que hay que desbloquear es el primero */
-	if (paux==proc){
-        p_proc_listo = proc;
-		eliminar_primero(lista);
-    }else {
-        /* recorremos los procesos hasta encontrar el que queremos
-         * o llegar al final
-         */
-		for ( ; ((paux) && (paux->siguiente!=proc));
-			paux=paux->siguiente);
+    int nivel;
+    
+    /* lo marcamos como listo */
+    proc->estado = LISTO;
+    
+    nivel=fijar_nivel_int(NIVEL_3);
+    eliminar_elem(lista, proc); /* lo eliminamos de la lista de bloqueados */
+    insertar_ultimo(&lista_listos, proc); /* lo insertamos como listo */
+    fijar_nivel_int(nivel);
 
-        /* Ahora comprobamos si paux no es nulo */
-		if (paux) {
-            p_proc_listo = proc;
-			if (lista->ultimo==paux->siguiente)
-				lista->ultimo=paux;
-			paux->siguiente=paux->siguiente->siguiente;
-		}
-	}
-    /* Solo insertamos el proceso de nuevo a listo si esta en la
-     * lista que nos han pasado
-     * */
-    if(p_proc_listo){
-        p_proc_listo->estado=LISTO;
-        insertar_ultimo(&lista_listos, p_proc_listo);
-    }
     return;
 }
 
@@ -231,13 +214,6 @@ static void desbloquear(BCP * proc, lista_BCPs * lista){
 static void ajustar_dormidos(){
 	BCP *paux=lista_dormidos.primero;
 
-//    for( ; paux != NULL; paux=paux->siguiente){
-//        paux->nticks -= 1;
-//        if(paux->nticks == 0){
-//	        printk("-> DEBLOQUEANDO PROC: %d\n", paux->id);
-//            desbloquear(paux, &lista_dormidos);
-//        }
-//    }
 
     while(paux){
        // printk("Proceso id: %i, ticks remaining: %i\n", paux->id, paux->nticks);
