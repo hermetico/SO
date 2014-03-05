@@ -156,14 +156,19 @@ static void liberar_proceso(){
  */
 static void bloquear(lista_BCPs * lista){
     BCP * p_proc_anterior, *p_proc_actual;
-    
+    int nivel;
+   
+    printk("------->B1\n");
     /* bloqueamos el proceso y apuntamos a el */
     p_proc_actual->estado=BLOQUEADO;
+    printk("------->B definido bloqueado\n");
     p_proc_anterior=p_proc_actual;
     
+    printk("------->B2\n");
     /* lo elimino de lista listos y lo inserto en lista_dormidos */
     eliminar_elem(&lista_listos, p_proc_anterior);
     insertar_ultimo(&lista_dormidos, p_proc_anterior);
+    printk("------->B3\n");
 
     /* llamamos al planificador para recuperar el nuevo proceso */
     p_proc_actual=planificador();
@@ -172,7 +177,7 @@ static void bloquear(lista_BCPs * lista){
 			p_proc_anterior->id, p_proc_actual->id);
     p_proc_actual->estado=EJECUCION;
     cambio_contexto(&(p_proc_anterior->contexto_regs), 
-            &(p_proc_actual->contexto_regs);
+            &(p_proc_actual->contexto_regs));
         return; /* no debería llegar aqui */
 }
 
@@ -186,7 +191,7 @@ static void desbloquear(BCP * proc, lista_BCPs * lista){
 	BCP *paux=lista->primero;
 
 	if (paux==proc)
-		eliminar_primero(&lista);
+		eliminar_primero(lista);
 	else {
 		for ( ; ((paux) && (paux->siguiente!=proc));
 			paux=paux->siguiente);
@@ -206,7 +211,7 @@ static void desbloquear(BCP * proc, lista_BCPs * lista){
  */
 
 static void ajustar_dormidos(){
-	BCP *paux=lista_dormidos->primero;
+	BCP *paux=lista_dormidos.primero;
 
     for( ; paux != NULL; paux=paux->siguiente){
         paux->nticks -= 1;
@@ -392,10 +397,10 @@ int sis_dormir(){
     printk("-> PROC %d A DORMIR %d SEGUNDOS\n",p_proc_actual->id, segundos);
     
     /* insertamos el numero de ticks */
-    p_proc_actual->nticks = segundos * TICK
+    p_proc_actual->nticks = segundos * TICK;
     
     /* solicitamos poner el proceso a dormir */
-    bloquear(lista_dormidos);
+    bloquear(&lista_dormidos);
     return 0;
 }
 
