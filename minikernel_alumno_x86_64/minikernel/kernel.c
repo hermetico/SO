@@ -164,10 +164,10 @@ static void bloquear(lista_BCPs * lista){
 
     /* detenemos interrupciones */
 	nivel=fijar_nivel_int(NIVEL_3); /*nivel 3 detiene todas */
-    /* lo elimino de lista listos y lo inserto en lista_dormidos */
-    
+
+    /* lo elimino de lista listos y lo inserto en lista recibida*/
     eliminar_elem(&lista_listos, p_proc_anterior);
-    insertar_ultimo(&lista_dormidos, p_proc_anterior);
+    insertar_ultimo(lista, p_proc_anterior);
 
     /*  volvemos a poner interrupciones como antes */
 	fijar_nivel_int(nivel);
