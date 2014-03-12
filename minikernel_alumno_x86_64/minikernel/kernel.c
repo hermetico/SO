@@ -213,16 +213,23 @@ static void desbloquear(BCP * proc, lista_BCPs * lista){
 
 static void ajustar_dormidos(){
 	BCP *paux=lista_dormidos.primero;
-
+    BCP *paux_a_bloquear;
 
     while(paux){
        // printk("Proceso id: %i, ticks remaining: %i\n", paux->id, paux->nticks);
         paux->nticks--;
         if(paux->nticks == 0){
 	        printk("-> DESPERTANDO PROC: %d\n", paux->id);
-            desbloquear(paux, &lista_dormidos);
+         
+            // apuntamos al paux a bloquar 
+            paux_a_bloquear = paux;
+            //apuntamos al paux siguiente
+            paux = paux->siguiente;
+            //bloqueamos el paux a bloquar
+            desbloquear(paux_a_bloquear, &lista_dormidos);
+        }else{
+            paux = paux->siguiente;
         }
-        paux = paux->siguiente;
     }
     return;
 }

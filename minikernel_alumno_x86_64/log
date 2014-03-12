@@ -1081,13 +1081,11 @@ simplon: termina
 -> NO HAY LISTOS. ESPERA INT
 -> TRATANDO INT. DE RELOJ
 -> DESPERTANDO PROC: 2
+-> DESPERTANDO PROC: 5
 -> C.CONTEXTO POR FIN: de 0 a 2
 proceso despertado con exito
 Dormilon: termina
 -> FIN PROCESO 2
--> NO HAY LISTOS. ESPERA INT
--> TRATANDO INT. DE RELOJ
--> DESPERTANDO PROC: 5
 -> C.CONTEXTO POR FIN: de 2 a 5
 proceso despertado con exito
 Dormilon: termina
