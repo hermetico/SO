@@ -130,6 +130,9 @@ static BCP * planificador(){
  */
 static void liberar_proceso(){
 	BCP * p_proc_anterior;
+    int nivel;
+    /* detenemos interrupciones */
+	nivel=fijar_nivel_int(NIVEL_3); /*nivel 3 detiene todas */
 
 	liberar_imagen(p_proc_actual->info_mem); /* liberar mapa */
 
@@ -146,7 +149,11 @@ static void liberar_proceso(){
 	liberar_pila(p_proc_anterior->pila);
     p_proc_actual->estado=EJECUCION;
 	cambio_contexto(NULL, &(p_proc_actual->contexto_regs));
-        return; /* no debería llegar aqui */
+    
+    /*  volvemos a poner interrupciones como antes */
+	fijar_nivel_int(nivel);
+    
+    return; /* no debería llegar aqui */
 }
 
 /*
@@ -158,19 +165,18 @@ static void bloquear(lista_BCPs * lista){
     BCP * p_proc_anterior;
     int nivel;
    
+    /* detenemos interrupciones */
+	nivel=fijar_nivel_int(NIVEL_3); /*nivel 3 detiene todas */
+
     /* bloqueamos el proceso y apuntamos a el */
     p_proc_actual->estado=BLOQUEADO;
     p_proc_anterior=p_proc_actual;
 
-    /* detenemos interrupciones */
-	nivel=fijar_nivel_int(NIVEL_3); /*nivel 3 detiene todas */
 
     /* lo elimino de lista listos y lo inserto en lista recibida*/
     eliminar_elem(&lista_listos, p_proc_anterior);
     insertar_ultimo(lista, p_proc_anterior);
 
-    /*  volvemos a poner interrupciones como antes */
-	fijar_nivel_int(nivel);
 
     /* llamamos al planificador para recuperar el nuevo proceso */
     p_proc_actual=planificador();
@@ -181,7 +187,11 @@ static void bloquear(lista_BCPs * lista){
     p_proc_actual->estado=EJECUCION;
     cambio_contexto(&(p_proc_anterior->contexto_regs), 
             &(p_proc_actual->contexto_regs));
-        return; /* no debería llegar aqui */
+
+    /*  volvemos a poner interrupciones como antes */
+	fijar_nivel_int(nivel);
+
+    return; /* no debería llegar aqui */
 }
 
 
@@ -336,6 +346,7 @@ static int crear_tarea(char *prog){
 	void * imagen, *pc_inicial;
 	int error=0;
 	int proc;
+    int nivel;
 	BCP *p_proc;
 
 	proc=buscar_BCP_libre();
@@ -355,11 +366,19 @@ static int crear_tarea(char *prog){
 			pc_inicial,
 			&(p_proc->contexto_regs));
 		p_proc->id=proc;
+        p_proc->nticks = 0; /* inicializamos los ticks a 0*/
 		p_proc->estado=LISTO;
 
-		/* lo inserta al final de cola de listos */
+        /* detenemos interrupciones */
+        nivel=fijar_nivel_int(NIVEL_3); /*nivel 3 detiene todas */
+		
+        /* lo inserta al final de cola de listos */
 		insertar_ultimo(&lista_listos, p_proc);
-		error= 0;
+    
+        /*  volvemos a poner interrupciones como antes */
+        fijar_nivel_int(nivel);
+		
+        error= 0;
 	}
 	else
 		error= -1; /* fallo al crear imagen */
