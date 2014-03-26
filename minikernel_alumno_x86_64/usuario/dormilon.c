@@ -11,13 +11,13 @@
 
 #include "servicios.h"
 
-#define SEGUNDOS 5  
+#define SEGUNDOS 1
 
 int main(){
     int i;
 
     printf("Dormilon: comienza\n");
-    
+    fijar_prio(20);
     i = dormir((unsigned int) SEGUNDOS);
     
     if (!i)

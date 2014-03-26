@@ -17,16 +17,20 @@
 int main(){
 
 	printf("init: comienza\n");
-
-	if (crear_proceso("simplon")<0)
-                printf("Error creando simplon\n");
-
-	if (crear_proceso("dormilon")<0)
-               printf("Error creando dormilon\n");
 	
-    /* Este programa causa una excepción */
+    if (crear_proceso("dormilon")<0)
+               printf("Error creando dormilon\n");
+
+	/* Este programa causa una excepción */
 	if (crear_proceso("excep_arit")<0)
 		printf("Error creando excep_arit\n");
+    
+    /* Este programa solicita que lo pongan a dormir */
+	if (crear_proceso("dormilon")<0)
+                printf("Error creando dormilon\n");
+
+    if (crear_proceso("simplon")<0)
+                printf("Error creando simplon\n");
 
 	/* Este programa crea otro proceso que ejecuta simplon a
 	   una excepción */
@@ -36,13 +40,6 @@ int main(){
 	/* No existe: debe fallar */
 	if (crear_proceso("noexiste")<0)
 		printf("Error creando noexiste\n");
-
-    /* Este programa solicita que lo pongan a dormir */
-	if (crear_proceso("dormilon")<0)
-                printf("Error creando dormilon\n");
-	
-	if (crear_proceso("simplon")<0)
-               printf("Error creando simplon\n");
 
     printf("init: termina\n");
 	return 0; 

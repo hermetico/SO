@@ -50,5 +50,7 @@ int dormir(unsigned int segundos){
         /*  pasamos segundos como long ya que las demas hacen lo mismo */
         return llamsis(DORMIR, 1, (long)segundos);
 }
-
+int fijar_prio(unsigned int prio){
+    return llamsis(FIJAR_PRIO, 1, (long)prio);
+}
 

@@ -36,6 +36,8 @@ typedef struct BCP_t {
         int nticks;         /* ticks que faltan para cambiarlo de estado */
         contexto_t contexto_regs;	/* copia de regs. de UCP */
         void * pila;			/* dir. inicial de la pila */
+        int prioridad;      /*  Prioridad del proceso  */
+        int prioridad_efectiva; /* prioridad efectiva del procesprioridad efectiva del procesoo */
 	BCPptr siguiente;		/* puntero a otro BCP */
 	void *info_mem;			/* descriptor del mapa de memoria */
 } BCP;
@@ -95,6 +97,7 @@ int sis_terminar_proceso();
 int sis_escribir();
 int sis_get_pid();
 int sis_dormir();
+int sis_fijar_prio();
 
 /*
  * Variable global que contiene las rutinas que realizan cada llamada
@@ -103,7 +106,13 @@ servicio tabla_servicios[NSERVICIOS]={	{sis_crear_proceso},
 					{sis_terminar_proceso},
 					{sis_escribir},
 					{sis_get_pid},
-					{sis_dormir}};
+					{sis_dormir},
+                    {sis_fijar_prio}};
+
+/*
+ * Variable glogal que indica si hay una replanificacion pendiente
+ */
+int replanificacion_pendiente = 0;
 
 #endif /* _KERNEL_H */
 

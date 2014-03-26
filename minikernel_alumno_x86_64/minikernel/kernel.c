@@ -93,11 +93,40 @@ static void eliminar_elem(lista_BCPs *lista, BCP * proc){
 	}
 }
 
+
+/*
+ * Funcion auxiliar que muestra los procesos de una lista con sus datos mas relevantes 
+ */
+void muestra_lista(lista_BCPs *lista){
+	BCP *paux=lista->primero;
+    /* Si hay un proceso mostramos que tipo de lista es mediante su estado */
+    if(paux){
+        printk("Imprimiendo lista de procesos con estado ");
+        if (paux->estado == TERMINADO) printk("TERMINADO");
+        else if (paux->estado == LISTO) printk("LISTO");
+        else if (paux->estado == EJECUCION) printk("EJECUCION");
+        else if (paux->estado == BLOQUEADO) printk ("BLOQUEADO");
+        printk("\n");
+    }
+    /* recorremos la lista mientras hayan procesos */
+    while(paux){
+        printk("\nProceso id %d {\n",paux->id);
+        printk("\tEstado: %d;\n",paux->estado);
+        printk("\tPrioridad: %d;\n",paux->prioridad);
+        printk("\tPrioridad_E: %d;\n",paux->prioridad_efectiva);
+        printk("}\n");
+        paux = paux->siguiente;
+    }
+    return;
+}
+
+
 /*
  *
  * Funciones relacionadas con la planificacion
  *	espera_int planificador
  */
+
 
 /*
  * Espera a que se produzca una interrupcion
@@ -113,10 +142,29 @@ static void espera_int(){
 	fijar_nivel_int(nivel);
 }
 
+/* 
+ *Funcion que retorna el proceso con maxima prioridad
+ */
+static BCP * maxima_prioridad(lista_BCPs *lista){
+    BCP * paux, * max_prio;
+    paux = lista->primero;
+    max_prio = paux;
+    /* recorremos la lista y nos quedamos con el proceso con max_prio */
+    while(paux->siguiente){
+        paux = paux->siguiente;
+        if(paux->prioridad > max_prio->prioridad) max_prio = paux;
+    }
+    return max_prio;
+}
+
 /*
  * Función de planificacion que implementa un algoritmo FIFO.
  */
 static BCP * planificador(){
+    /*  la plainificacion actual se base en la busqueda de maxima_prioridad */
+    return maxima_prioridad(&lista_listos);
+
+    /* AQUI NO DEBERIA LLEGAR */
 	while (lista_listos.primero==NULL)
 		espera_int();		/* No hay nada que hacer */
 	return lista_listos.primero;
@@ -137,18 +185,24 @@ static void liberar_proceso(){
 	liberar_imagen(p_proc_actual->info_mem); /* liberar mapa */
 
 	p_proc_actual->estado=TERMINADO;
-	eliminar_primero(&lista_listos); /* proc. fuera de listos */
-
-	/* Realizar cambio de contexto */
-	p_proc_anterior=p_proc_actual;
+	//eliminar_primero(&lista_listos); /* proc. fuera de listos */
+	
+    eliminar_elem(&lista_listos, p_proc_actual); /* proc. fuera de listos */
+    p_proc_anterior=p_proc_actual;
 	p_proc_actual=planificador();
 
+	
+    /* Realizar cambio de contexto */
+    //muestra_lista(&lista_listos);
 	printk("-> C.CONTEXTO POR FIN: de %d a %d\n",
 			p_proc_anterior->id, p_proc_actual->id);
 
 	liberar_pila(p_proc_anterior->pila);
     p_proc_actual->estado=EJECUCION;
 	cambio_contexto(NULL, &(p_proc_actual->contexto_regs));
+    
+    /* Cancelamos la replanificacion que pueda haber pendiente */
+    replanificacion_pendiente = 0;
     
     /*  volvemos a poner interrupciones como antes */
 	fijar_nivel_int(nivel);
@@ -187,7 +241,9 @@ static void bloquear(lista_BCPs * lista){
     p_proc_actual->estado=EJECUCION;
     cambio_contexto(&(p_proc_anterior->contexto_regs), 
             &(p_proc_actual->contexto_regs));
-
+    /* Cancelamos la replanificacion que pueda haber pendiente */
+    replanificacion_pendiente = 0;
+    
     /*  volvemos a poner interrupciones como antes */
 	fijar_nivel_int(nivel);
 
@@ -204,17 +260,55 @@ static void desbloquear(BCP * proc, lista_BCPs * lista){
     int nivel;
     
     /* lo marcamos como listo */
-    proc->estado = LISTO;
-    
+    proc->estado = LISTO;    
     nivel=fijar_nivel_int(NIVEL_3);
     eliminar_elem(lista, proc); /* lo eliminamos de la lista de bloqueados */
     insertar_ultimo(&lista_listos, proc); /* lo insertamos como listo */
     fijar_nivel_int(nivel);
+    
+    /* si no hay una replanificacion pendiente, comprobamos si es necesaria */
+    if(!replanificacion_pendiente){
+        /* comprobamos la prioridad del nuevo proceso */
+        if(proc->prioridad > p_proc_actual->prioridad){
+            /* activamos la interrupcion con la replanificacion pendiente */
+            replanificacion_pendiente = 1;
+            activar_int_SW();
+        }
+    }
 
     return;
 }
 
+/*
+ * Funcion auxiliar que modifica el proceso actual por el que retorna
+ * el planificador
+ */
+static void replanificar(){
 
+    /* Mostramos lista listos */
+    printk("-> PROCESOS LISTOS:\n");
+    muestra_lista(&lista_listos);
+    /* Mostramos lista dormidos */
+    printk("-> PROCESOS BLOQUEADOS:\n");
+    muestra_lista(&lista_dormidos);
+    
+    BCP * p_proc_anterior;
+    /*  ponemos le proceso actual de EJECUCION a LISTO */
+    p_proc_actual->estado=LISTO;
+    p_proc_anterior = p_proc_actual;
+    /* recuperamos el proceso segun el planificador */
+    p_proc_actual = planificador();
+
+	printk("-> C.CONTEXTO POR REPLANIFICACION: de %d a %d\n",
+			p_proc_anterior->id, p_proc_actual->id);
+    
+    p_proc_actual->estado=EJECUCION;
+    cambio_contexto(&(p_proc_anterior->contexto_regs), 
+            &(p_proc_actual->contexto_regs));
+    /* Cancelamos la replanificacion que pueda haber pendiente */
+    replanificacion_pendiente = 0;
+    return;
+}
 /*
  * Funcion auxiliar que acutaliza los ticks de los procesos dormidos
  * cuando detecta que uno no tiene ticks pendientes lo envia a desbloquear
@@ -332,8 +426,11 @@ static void tratar_llamsis(){
 static void int_sw(){
 
 	printk("-> TRATANDO INT. SW\n");
+    /* Si hay replanificacion pendiente */
+    if(replanificacion_pendiente)
+        replanificar();
 
-	return;
+    return;
 }
 
 /*
@@ -368,6 +465,11 @@ static int crear_tarea(char *prog){
 		p_proc->id=proc;
         p_proc->nticks = 0; /* inicializamos los ticks a 0*/
 		p_proc->estado=LISTO;
+
+        /* Si no existe proceso actual, es que es el proceso inicial
+         * y fijamos su prio a min*/
+        if (p_proc_actual) p_proc->prioridad = p_proc_actual->prioridad;
+        else p_proc->prioridad = MIN_PRIO;
 
         /* detenemos interrupciones */
         nivel=fijar_nivel_int(NIVEL_3); /*nivel 3 detiene todas */
@@ -464,6 +566,24 @@ int sis_terminar_proceso(){
         return 0; /* no debería llegar aqui */
 }
 
+/* 
+ * Tratamiento de llamada al sistema fijar_prio. Actualiza la prioridad del proceso
+ * actual
+ */
+int sis_fijar_prio(){
+    unsigned int prioridad;
+    prioridad=(unsigned int)leer_registro(1);
+
+    /* comprobamos que sea una prioridad valida */
+    if (prioridad < MIN_PRIO) return -1;
+    if (prioridad > MAX_PRIO) return -1;
+    
+    printk("-> PROC %d, FIJANDO PRIORIDAD DE %d A %d\n",p_proc_actual->id, p_proc_actual->prioridad, prioridad);
+    p_proc_actual->prioridad = prioridad;
+    return 0;
+    
+} 
+
 /*
  *
  * Rutina de inicialización invocada en arranque
@@ -491,7 +611,8 @@ int main(){
 	/* activa proceso inicial */
 	p_proc_actual=planificador();
     p_proc_actual->estado = EJECUCION;
-                    /* proceso que dejo de ejecutar, y proceso que paso a ejecutar*/
+
+    /* proceso que dejo de ejecutar, y proceso que paso a ejecutar*/
 	cambio_contexto(NULL, &(p_proc_actual->contexto_regs));
 	panico("S.O. reactivado inesperadamente");
 	return 0;

@@ -35,6 +35,14 @@
 #define EJECUCION 2
 #define BLOQUEADO 3
 
+/* 
+ * Niveles de prioridad de los procesos
+ */
+
+#define MIN_PRIO 10
+#define MAX_PRIO 50
+
+
 /*
  * Niveles de ejecución del procesador. 
  */
