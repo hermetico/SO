@@ -4,7 +4,6 @@ init: comienza
 -> PROC 0: CREAR PROCESO
 -> PROC 0: CREAR PROCESO
 -> PROC 0: CREAR PROCESO
--> PROC 0: CREAR PROCESO
 Error creando noexiste
 init: termina
 -> FIN PROCESO 0
@@ -47,19 +46,14 @@ PID del simplon: 4
 Proceso muy largo en marcha
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
-Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
@@ -68,13 +62,6 @@ Simplon procesando
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
@@ -82,7 +69,9 @@ Simplon procesando
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
 Simplon procesando
+-> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
@@ -91,27 +80,9 @@ Simplon procesando
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
-Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
@@ -120,8 +91,6 @@ Simplon procesando
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
@@ -129,21 +98,9 @@ Simplon procesando
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
-Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
@@ -152,24 +109,9 @@ Simplon procesando
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
-Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
@@ -178,8 +120,6 @@ Simplon procesando
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
@@ -187,14 +127,59 @@ Simplon procesando
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> DESPERTANDO PROC: 1
 -> DESPERTANDO PROC: 3
@@ -204,12 +189,6 @@ Imprimiendo lista de procesos con estado EJECUCION
 
 Proceso id 4 {
 	Estado: 2;
-	Prioridad: 10;
-	Prioridad_E: 0;
-}
-
-Proceso id 5 {
-	Estado: 1;
 	Prioridad: 10;
 	Prioridad_E: 0;
 }
@@ -235,18 +214,13 @@ proceso despertado con exito
 Dormilon: termina
 -> FIN PROCESO 3
 -> C.CONTEXTO POR FIN: de 3 a 4
-Simplon procesando
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
@@ -255,16 +229,9 @@ Simplon procesando
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
@@ -273,7 +240,6 @@ Simplon procesando
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
-Simplon procesando
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
@@ -281,13 +247,9 @@ Simplon procesando
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
@@ -296,24 +258,9 @@ Simplon procesando
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
-Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
@@ -322,8 +269,6 @@ Simplon procesando
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
@@ -331,16 +276,9 @@ Simplon procesando
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
@@ -349,7 +287,6 @@ Simplon procesando
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
-Simplon procesando
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
@@ -357,19 +294,147 @@ Simplon procesando
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
 Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+Simplon procesando
+-> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
@@ -378,323 +443,3 @@ Simplon procesando
 Simplon procesando
 simplon: termina
 -> FIN PROCESO 4
--> C.CONTEXTO POR FIN: de 4 a 5
--> PROC 5: CREAR PROCESO
-excep_mem: i 0
-excep_mem: i 1
-excep_mem: i 2
-excep_mem: i 3
-excep_mem: i 4
-excep_mem: i 5
-excep_mem: i 6
-excep_mem: i 7
-excep_mem: i 8
-excep_mem: i 9
-excep_mem: i 10
-excep_mem: i 11
-excep_mem: i 12
-excep_mem: i 13
-excep_mem: i 14
-excep_mem: i 15
-excep_mem: i 16
-excep_mem: i 17
-excep_mem: i 18
-excep_mem: i 19
--> EXCEPCION DE MEMORIA EN PROC 5
--> C.CONTEXTO POR FIN: de 5 a 0
-simplon: comienza
--> A DINS DE SIS_GET_PID
-PID del simplon: 0
-Proceso muy largo en marcha
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
-Simplon procesando
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
-Simplon procesando
-simplon: termina
--> FIN PROCESO 0
