@@ -101,6 +101,7 @@ void muestra_lista(lista_BCPs *lista){
 	BCP *paux=lista->primero;
     /* Si hay un proceso mostramos que tipo de lista es mediante su estado */
     /* recorremos la lista mientras hayan procesos */
+    printk("=======INICIO====\n");
     while(paux){
         printk("\nProceso id %d {\n",paux->id);
         printk("\tEstado: ");
@@ -118,6 +119,7 @@ void muestra_lista(lista_BCPs *lista){
         printk("}\n");
         paux = paux->siguiente;
     }
+    printk("=======FIN====\n\n");
     return;
 }
 
@@ -153,7 +155,7 @@ static BCP * maxima_prioridad(lista_BCPs *lista){
     /* recorremos la lista y nos quedamos con el proceso con max_prio */
     while(paux->siguiente){
         paux = paux->siguiente;
-        if(paux->prioridad > max_prio->prioridad) max_prio = paux;
+        if(paux->prioridad_efectiva > max_prio->prioridad_efectiva) max_prio = paux;
     }
     return max_prio;
 }
@@ -229,6 +231,15 @@ static void bloquear(lista_BCPs * lista){
     eliminar_elem(&lista_listos, p_proc_anterior);
     insertar_ultimo(lista, p_proc_anterior);
 
+//////////////////////////////////////////
+    /* Mostramos lista listos */
+
+    printk("-> PROCESOS LISTOS:\n");
+    muestra_lista(&lista_listos);
+    /* Mostramos lista dormidos */
+    printk("-> PROCESOS BLOQUEADOS:\n");
+    muestra_lista(&lista_dormidos);
+////////////////////////////////////////////////
 
     /* llamamos al planificador para recuperar el nuevo proceso */
     p_proc_actual=planificador();
@@ -242,6 +253,15 @@ static void bloquear(lista_BCPs * lista){
     /* Cancelamos la replanificacion que pueda haber pendiente */
     replanificacion_pendiente = 0;
     
+//////////////////////////////////////////
+    /* Mostramos lista listos */
+
+    printk("-> PROCESOS LISTOS:\n");
+    muestra_lista(&lista_listos);
+    /* Mostramos lista dormidos */
+    printk("-> PROCESOS BLOQUEADOS:\n");
+    muestra_lista(&lista_dormidos);
+////////////////////////////////////////////////
     /*  volvemos a poner interrupciones como antes */
 	fijar_nivel_int(nivel);
 
@@ -341,7 +361,7 @@ static void ajustar_dormidos(){
 static void reajustar_prioridades(){
     int  contador, prioridad;
     float prioridad_e;
-    printk("-> REAJUSTANDO TODOS LOS PROCESOS\n");
+    printk("-> COMPROBACION DE REAJUSTE GLOBAL DE PROCESOS, RESULTADO : NECESARIO REAJUSTE\n");
     for(contador = 0; contador < MAX_PROC; contador++){
         /* comprobamos que en el BCP hay un proceso */
         if(tabla_procs[contador].estado != NO_USADA){
@@ -369,6 +389,7 @@ static int comprobar_necesario_reajustar_prioridades(){
     paux = lista_listos.primero;
     while(paux){
         if( paux->prioridad_efectiva >= 0 ){
+            printk("-> COMPROBACION DE REAJUSTE GLOBAL DE PROCESOS, RESULTADO : NO NECESARIO\n");
             reajustar_todos = 0;
             break;
         }
@@ -386,10 +407,13 @@ static int comprobar_necesario_reajustar_prioridades(){
  */
 static void ajustar_prioridad_actual(){
 
+    /* Hay ocasiones que el proceso actual esta bloqueado y no hay ninguno listo */
+    if(p_proc_actual->estado != EJECUCION ) return;
     //decrementamos la prio_efectiva del proceso actual
     p_proc_actual->prioridad_efectiva -=1.0;
     // si ha llegado a 0
-    if(p_proc_actual <= 0){
+    if(p_proc_actual->prioridad_efectiva <= 0){
+        printk("-> PROCESO %d AGOTA TIEMPO DE USO DE CPU\n",p_proc_actual->id);
         /* ahora podemos comprobar si es necesario reajustar prioridades */
         if(comprobar_necesario_reajustar_prioridades())
             reajustar_prioridades();
@@ -397,6 +421,7 @@ static void ajustar_prioridad_actual(){
         replanificacion_pendiente = 1;
         activar_int_SW();
     }
+    return;
 }
 
 /*

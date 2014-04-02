@@ -11,14 +11,17 @@
 
 #include "servicios.h"
 
-#define SEGUNDOS 1
+#define SEGUNDOS 2
 
 int main(){
-    int i;
-
+    int i, counter;
+    counter = 3;
     printf("Dormilon: comienza\n");
-    fijar_prio(21);
-    i = dormir((unsigned int) SEGUNDOS);
+    fijar_prio(40);
+    while(counter>=0){
+        i = dormir((unsigned int) SEGUNDOS);
+        counter--;
+    }
     
     if (!i)
         printf("proceso despertado con exito\n");
