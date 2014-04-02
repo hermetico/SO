@@ -114,7 +114,7 @@ void muestra_lista(lista_BCPs *lista){
         }
 
         printk("\tPrioridad: %d;\n",paux->prioridad);
-        printk("\tPrioridad_E: %d;\n",paux->prioridad_efectiva);
+        printk("\tPrioridad_E: %f;\n",paux->prioridad_efectiva);
         printk("}\n");
         paux = paux->siguiente;
     }
@@ -337,6 +337,19 @@ static void ajustar_dormidos(){
 }
 
 /*
+ * funcion auxiliar que actualiza las prioridades
+ * del proceso actual y del resto si es necesario
+ */
+static void reajustar_prioridades(){
+
+    //decrementamos la prio_efectiva del proceso actual
+    p_proc_atual->prioridad_efectiva -=1.0;
+    // si ha llegado a 0
+    if(p_proc_actual <= 0){
+        //TODO
+    }
+}
+/*
  *
  * Funciones relacionadas con el tratamiento de interrupciones
  *	excepciones: exc_arit exc_mem
@@ -393,6 +406,8 @@ static void int_terminal(){
 static void int_reloj(){
 
 	printk("-> TRATANDO INT. DE RELOJ\n");
+    // ajustamos prio del proceso actual
+    reajustar_prioridades();
     ajustar_dormidos();
 
         return;
@@ -467,22 +482,22 @@ static int crear_tarea(char *prog){
         if (p_proc_actual){
             // la prioridad base se mantiene
             p_proc->prioridad = p_proc_actual->prioridad;
-            /*AQUESTA PART ESTA COMENTADA PER QUE ES DE LA SEGONA PART DE LA PRACTICA */
             /* comprobamos las condiciones para repartir la prio_efectiva */
-            //if(!p_proc_actual->prioridad == MIN_PRIO &&
-            //        p_proc_actual->prioridad_efectiva <= MIN_PRIO)){
+            if(!(p_proc_actual->prioridad == MIN_PRIO &&
+                    p_proc_actual->prioridad_efectiva <= MIN_PRIO)){
                 /* dividimos la prioridad del padre
                  * por que se repartira con el hijo 
                  */
-            //    p_proc_actual->prioridad_efectiva /=  2.0;
-            //}
-            // asignamos la prioridad al hijo
-            //p_proc->prioridad_efectiva = p_proc_actual->prioridad_efectiva;
+                p_proc_actual->prioridad_efectiva /=  2.0;
+            }
+            // asignamos la prioridad efectiva al hijo
+            p_proc->prioridad_efectiva = p_proc_actual->prioridad_efectiva;
         }else{
             /* Si no existe proceso actual, es que es el proceso inicial
             * y fijamos su prio a min*/
             p_proc->prioridad = MIN_PRIO;
-            p_proc->prioridad_efectiva = MIN_PRIO;
+            //asignamos la efectiva asegurando que es un float
+            p_proc->prioridad_efectiva = MIN_PRIO * 1.0;
         }
 
         /* detenemos interrupciones */
@@ -586,21 +601,52 @@ int sis_terminar_proceso(){
  */
 int sis_fijar_prio(){
     unsigned int prioridad, prioridad_anterior;
+    float prioridad_efectiva_anterior;
+
+//////////////////////////////////////////
+    /* Mostramos lista listos */
+
+    printk("-> PROCESOS LISTOS:\n");
+    muestra_lista(&lista_listos);
+    /* Mostramos lista dormidos */
+    printk("-> PROCESOS BLOQUEADOS:\n");
+    muestra_lista(&lista_dormidos);
+////////////////////////////////////////////////
+
     prioridad=(unsigned int)leer_registro(1);
 
     /* comprobamos que sea una prioridad valida */
     if (prioridad < MIN_PRIO) return -1;
     if (prioridad > MAX_PRIO) return -1;
+    
+    printk("-> PROC %d, FIJANDO PRIORIDAD DE %d A %d\n",p_proc_actual->id, p_proc_actual->prioridad, prioridad);
+    
     /* nos guardamos la prioridad actual como la anterior */
     prioridad_anterior = p_proc_actual->prioridad;
-    printk("-> PROC %d, FIJANDO PRIORIDAD DE %d A %d\n",p_proc_actual->id, p_proc_actual->prioridad, prioridad);
+    prioridad_efectiva_anterior = p_proc_actual->prioridad_efectiva;
     p_proc_actual->prioridad = prioridad;
-    /* si la prioridad_anterior es mayor, hay que replanificar */
-    if(prioridad_anterior > prioridad){
+    /* comprobamos las condiciones para asignar la prio_efectiva */
+    if(prioridad >= prioridad_anterior){
+        /* la prio_e = prio_e_ant * (prio + prio_ant) /(2 prio_ant)*/
+        printk("CAMBI A MAYOR\n");
+        p_proc_actual->prioridad_efectiva *= ( (prioridad + prioridad_anterior)/(prioridad_anterior * 2.0) );
+    }else{
+        printk("CAMBI A MENOR\n");
+        /* La prio_e = prio_e_ant * (prio / prio_ant) evitando problemas con enteros*/
+        p_proc_actual->prioridad_efectiva *= (prioridad / (prioridad_anterior * (1.0)));
+    }
+    
+    printk("-> PROC %d, FIJANDO PRIORIDAD_E DE %f A %f\n",p_proc_actual->id,
+            prioridad_efectiva_anterior, p_proc_actual->prioridad_efectiva);
+
+    /* comprobamos si se cumplen las condiciones para replanificar */
+    if(p_proc_actual->prioridad_efectiva < prioridad_efectiva_anterior){
+        /* si la prioridad_anterior es mayor, hay que replanificar */
         if(!replanificacion_pendiente){
             replanificacion_pendiente = 1;
             activar_int_SW();
         }
+    
     }
     return 0;
     

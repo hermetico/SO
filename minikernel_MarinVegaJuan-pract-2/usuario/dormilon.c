@@ -17,7 +17,7 @@ int main(){
     int i;
 
     printf("Dormilon: comienza\n");
-    fijar_prio(20);
+    fijar_prio(21);
     i = dormir((unsigned int) SEGUNDOS);
     
     if (!i)

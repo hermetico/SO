@@ -17,7 +17,7 @@
 int main(){
 
 	printf("init: comienza\n");
-    fijar_prio(30);
+    fijar_prio(23);
     if (crear_proceso("dormilon")<0)
                printf("Error creando dormilon\n");
 

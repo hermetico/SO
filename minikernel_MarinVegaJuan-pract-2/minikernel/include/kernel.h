@@ -37,7 +37,7 @@ typedef struct BCP_t {
         contexto_t contexto_regs;	/* copia de regs. de UCP */
         void * pila;			/* dir. inicial de la pila */
         int prioridad;      /*  Prioridad del proceso  */
-        int prioridad_efectiva; /* prioridad efectiva del procesprioridad efectiva del procesoo */
+        float prioridad_efectiva; /* prioridad efectiva del procesprioridad efectiva del procesoo */
 	BCPptr siguiente;		/* puntero a otro BCP */
 	void *info_mem;			/* descriptor del mapa de memoria */
 } BCP;
