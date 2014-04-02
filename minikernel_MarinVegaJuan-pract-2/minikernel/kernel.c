@@ -343,26 +343,32 @@ static void reajustar_prioridades(){
     float prioridad_e;
     printk("-> REAJUSTANDO TODOS LOS PROCESOS\n");
     for(contador = 0; contador < MAX_PROC; contador++){
-        // si existe el proceso
-        prioridad_e = tabla_procs[contador].prioridad_efectiva;
-        prioridad = tabla_procs[contador].prioridad;
-        tabla_procs[contador].prioridad_efectiva = (prioridad_e / 2.0) + prioridad;
+        /* comprobamos que en el BCP hay un proceso */
+        if(tabla_procs[contador].estado != NO_USADA){
+            prioridad_e = tabla_procs[contador].prioridad_efectiva;
+            prioridad = tabla_procs[contador].prioridad;
+            tabla_procs[contador].prioridad_efectiva = (prioridad_e / 2.0) + prioridad;
+        }
     }
 
 }
 
+/* 
+ * Funcio que comprueba la necesidad de reajustar la prioridad de todos los procesos
+ * con la condicion de que todos los listos tengan prioridad efectiva <= 0
+ * */
 static int comprobar_necesario_reajustar_prioridades(){
     BCP * paux;
     int nivel, reajustar_todos;
-    reajustar_todos;
+
+    reajustar_todos = 1; /* true por defecto */
+
     /* detenemos interrupciones */
     nivel=fijar_nivel_int(NIVEL_3); /*nivel 3 detiene todas */
-    
     /* recorremos los procesos listos */
     paux = lista_listos.primero;
-    /* recorremos la lista y nos quedamos con el proceso con max_prio */
     while(paux){
-        if(paux->prioridad_efectiva >=0){
+        if( paux->prioridad_efectiva >= 0 ){
             reajustar_todos = 0;
             break;
         }
