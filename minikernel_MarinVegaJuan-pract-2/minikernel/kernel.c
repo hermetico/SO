@@ -335,20 +335,64 @@ static void ajustar_dormidos(){
     }
     return;
 }
-
 /*
- * funcion auxiliar que actualiza las prioridades
- * del proceso actual y del resto si es necesario
+ * funcion actual que reajusta las prioridades de todos los procesos si es necesario
  */
 static void reajustar_prioridades(){
+    int  contador, prioridad;
+    float prioridad_e;
+    printk("-> REAJUSTANDO TODOS LOS PROCESOS\n");
+    for(contador = 0; contador < MAX_PROC; contador++){
+        // si existe el proceso
+        prioridad_e = tabla_procs[contador].prioridad_efectiva;
+        prioridad = tabla_procs[contador].prioridad;
+        tabla_procs[contador].prioridad_efectiva = (prioridad_e / 2.0) + prioridad;
+    }
+
+}
+
+static int comprobar_necesario_reajustar_prioridades(){
+    BCP * paux;
+    int nivel, reajustar_todos;
+    reajustar_todos;
+    /* detenemos interrupciones */
+    nivel=fijar_nivel_int(NIVEL_3); /*nivel 3 detiene todas */
+    
+    /* recorremos los procesos listos */
+    paux = lista_listos.primero;
+    /* recorremos la lista y nos quedamos con el proceso con max_prio */
+    while(paux){
+        if(paux->prioridad_efectiva >=0){
+            reajustar_todos = 0;
+            break;
+        }
+        paux = paux->siguiente;
+    }
+    /* activamos las interrupciones */
+    fijar_nivel_int(nivel);
+
+    return reajustar_todos;
+
+}
+/*
+ * funcion auxiliar que actualiza la prioridad
+ * del proceso actual
+ */
+static void ajustar_prioridad_actual(){
 
     //decrementamos la prio_efectiva del proceso actual
-    p_proc_atual->prioridad_efectiva -=1.0;
+    p_proc_actual->prioridad_efectiva -=1.0;
     // si ha llegado a 0
     if(p_proc_actual <= 0){
-        //TODO
+        /* ahora podemos comprobar si es necesario reajustar prioridades */
+        if(comprobar_necesario_reajustar_prioridades())
+            reajustar_prioridades();
+        /* ahora replanificamos */
+        replanificacion_pendiente = 1;
+        activar_int_SW();
     }
 }
+
 /*
  *
  * Funciones relacionadas con el tratamiento de interrupciones
@@ -407,10 +451,10 @@ static void int_reloj(){
 
 	printk("-> TRATANDO INT. DE RELOJ\n");
     // ajustamos prio del proceso actual
-    reajustar_prioridades();
+    ajustar_prioridad_actual();
     ajustar_dormidos();
 
-        return;
+    return;
 }
 
 /*
