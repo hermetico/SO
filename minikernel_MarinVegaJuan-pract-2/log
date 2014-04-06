@@ -1,24 +1,19 @@
 init: comienza
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 0 {
 	Estado: EJECUCION
 	Prioridad: 10;
 	Prioridad_E: 10.000000;
 }
-=======FIN====
-
--> PROCESOS BLOQUEADOS:
-=======INICIO====
-=======FIN====
+== FIN LISTA
 
 -> PROC 0, FIJANDO PRIORIDAD DE 10 A 25
-CAMBI A MAYOR
 -> PROC 0, FIJANDO PRIORIDAD_E DE 10.000000 A 17.500000
 -> PROC 0: CREAR PROCESO
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 0 {
 	Estado: EJECUCION
@@ -31,14 +26,9 @@ Proceso id 1 {
 	Prioridad: 25;
 	Prioridad_E: 8.750000;
 }
-=======FIN====
-
--> PROCESOS BLOQUEADOS:
-=======INICIO====
-=======FIN====
+== FIN LISTA
 
 -> PROC 0, FIJANDO PRIORIDAD DE 25 A 30
-CAMBI A MAYOR
 -> PROC 0, FIJANDO PRIORIDAD_E DE 8.750000 A 9.625000
 -> PROC 0: CREAR PROCESO
 -> PROC 0: CREAR PROCESO
@@ -50,8 +40,8 @@ init: termina
 -> FIN PROCESO 0
 -> C.CONTEXTO POR FIN: de 0 a 1
 Dormilon: comienza
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 1 {
 	Estado: EJECUCION
@@ -82,18 +72,13 @@ Proceso id 5 {
 	Prioridad: 30;
 	Prioridad_E: 0.601562;
 }
-=======FIN====
-
--> PROCESOS BLOQUEADOS:
-=======INICIO====
-=======FIN====
+== FIN LISTA
 
 -> PROC 1, FIJANDO PRIORIDAD DE 25 A 40
-CAMBI A MAYOR
 -> PROC 1, FIJANDO PRIORIDAD_E DE 8.750000 A 11.375000
 -> PROC 1 A DORMIR 2 SEGUNDOS
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 2 {
 	Estado: LISTO
@@ -118,17 +103,17 @@ Proceso id 5 {
 	Prioridad: 30;
 	Prioridad_E: 0.601562;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 1 {
 	Estado: BLOQUEADO
 	Prioridad: 40;
 	Prioridad_E: 11.375000;
 }
-=======FIN====
+== FIN LISTA
 
 -> C.CONTEXTO POR BLOQUEO: de 1 a 2
 simplon: comienza
@@ -143,8 +128,8 @@ Proceso largo en marcha
 -> PROCESO 2 AGOTA TIEMPO DE USO DE CPU
 -> COMPROBACION DE REAJUSTE GLOBAL DE PROCESOS, RESULTADO : NO NECESARIO
 -> TRATANDO INT. SW
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 2 {
 	Estado: EJECUCION
@@ -169,17 +154,17 @@ Proceso id 5 {
 	Prioridad: 30;
 	Prioridad_E: 0.601562;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 1 {
 	Estado: BLOQUEADO
 	Prioridad: 40;
 	Prioridad_E: 11.375000;
 }
-=======FIN====
+== FIN LISTA
 
 -> C.CONTEXTO POR REPLANIFICACION: de 2 a 3
 excep_arit: i 0 
@@ -207,8 +192,8 @@ excep_arit: i 21
 -> EXCEPCION ARITMETICA EN PROC 3
 -> C.CONTEXTO POR FIN: de 3 a 4
 Dormilon: comienza
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 2 {
 	Estado: LISTO
@@ -227,24 +212,23 @@ Proceso id 5 {
 	Prioridad: 30;
 	Prioridad_E: 0.601562;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 1 {
 	Estado: BLOQUEADO
 	Prioridad: 40;
 	Prioridad_E: 11.375000;
 }
-=======FIN====
+== FIN LISTA
 
 -> PROC 4, FIJANDO PRIORIDAD DE 30 A 40
-CAMBI A MAYOR
 -> PROC 4, FIJANDO PRIORIDAD_E DE 1.203125 A 1.403646
 -> PROC 4 A DORMIR 2 SEGUNDOS
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 2 {
 	Estado: LISTO
@@ -257,10 +241,10 @@ Proceso id 5 {
 	Prioridad: 30;
 	Prioridad_E: 0.601562;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 1 {
 	Estado: BLOQUEADO
@@ -273,7 +257,7 @@ Proceso id 4 {
 	Prioridad: 40;
 	Prioridad_E: 1.403646;
 }
-=======FIN====
+== FIN LISTA
 
 -> C.CONTEXTO POR BLOQUEO: de 4 a 5
 simplon: comienza
@@ -284,8 +268,8 @@ Proceso largo en marcha
 -> PROCESO 5 AGOTA TIEMPO DE USO DE CPU
 -> COMPROBACION DE REAJUSTE GLOBAL DE PROCESOS, RESULTADO : NECESARIO REAJUSTE
 -> TRATANDO INT. SW
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 2 {
 	Estado: LISTO
@@ -298,10 +282,10 @@ Proceso id 5 {
 	Prioridad: 30;
 	Prioridad_E: 29.800781;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 1 {
 	Estado: BLOQUEADO
@@ -314,7 +298,7 @@ Proceso id 4 {
 	Prioridad: 40;
 	Prioridad_E: 40.701824;
 }
-=======FIN====
+== FIN LISTA
 
 -> C.CONTEXTO POR REPLANIFICACION: de 5 a 2
 -> TRATANDO INT. DE RELOJ
@@ -331,21 +315,20 @@ Proceso id 4 {
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> PROC 2 A DORMIR 1 SEGUNDOS
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 5 {
 	Estado: LISTO
 	Prioridad: 30;
 	Prioridad_E: 29.800781;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 1 {
 	Estado: BLOQUEADO
@@ -362,9 +345,9 @@ Proceso id 4 {
 Proceso id 2 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
-	Prioridad_E: 14.906250;
+	Prioridad_E: 15.906250;
 }
-=======FIN====
+== FIN LISTA
 
 -> C.CONTEXTO POR BLOQUEO: de 2 a 5
 -> TRATANDO INT. DE RELOJ
@@ -387,12 +370,8 @@ Proceso id 2 {
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> PROC 5 A DORMIR 1 SEGUNDOS
--> PROCESOS LISTOS:
-=======INICIO====
-=======FIN====
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 1 {
 	Estado: BLOQUEADO
@@ -409,7 +388,7 @@ Proceso id 4 {
 Proceso id 2 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
-	Prioridad_E: 14.906250;
+	Prioridad_E: 15.906250;
 }
 
 Proceso id 5 {
@@ -417,7 +396,7 @@ Proceso id 5 {
 	Prioridad: 30;
 	Prioridad_E: 11.800781;
 }
-=======FIN====
+== FIN LISTA
 
 -> NO HAY LISTOS. ESPERA INT
 -> TRATANDO INT. DE RELOJ
@@ -585,18 +564,18 @@ Proceso id 5 {
 -> TRATANDO INT. DE RELOJ
 -> DESPERTANDO PROC: 2
 -> C.CONTEXTO POR BLOQUEO: de 5 a 2
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 2 {
 	Estado: EJECUCION
 	Prioridad: 30;
-	Prioridad_E: 14.906250;
+	Prioridad_E: 15.906250;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 1 {
 	Estado: BLOQUEADO
@@ -615,8 +594,9 @@ Proceso id 5 {
 	Prioridad: 30;
 	Prioridad_E: 11.800781;
 }
-=======FIN====
+== FIN LISTA
 
+-> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
@@ -635,18 +615,18 @@ Proceso id 5 {
 -> PROCESO 2 AGOTA TIEMPO DE USO DE CPU
 -> COMPROBACION DE REAJUSTE GLOBAL DE PROCESOS, RESULTADO : NECESARIO REAJUSTE
 -> TRATANDO INT. SW
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 2 {
 	Estado: EJECUCION
 	Prioridad: 30;
 	Prioridad_E: 29.953125;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 1 {
 	Estado: BLOQUEADO
@@ -665,29 +645,27 @@ Proceso id 5 {
 	Prioridad: 30;
 	Prioridad_E: 35.900391;
 }
-=======FIN====
+== FIN LISTA
 
 -> C.CONTEXTO POR REPLANIFICACION: de 2 a 2
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
 -> DESPERTANDO PROC: 5
--> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> PROC 2 A DORMIR 1 SEGUNDOS
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 5 {
 	Estado: LISTO
 	Prioridad: 30;
 	Prioridad_E: 35.900391;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 1 {
 	Estado: BLOQUEADO
@@ -704,23 +682,23 @@ Proceso id 4 {
 Proceso id 2 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
-	Prioridad_E: 24.953125;
+	Prioridad_E: 26.953125;
 }
-=======FIN====
+== FIN LISTA
 
 -> C.CONTEXTO POR BLOQUEO: de 2 a 5
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 5 {
 	Estado: EJECUCION
 	Prioridad: 30;
 	Prioridad_E: 35.900391;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 1 {
 	Estado: BLOQUEADO
@@ -737,9 +715,9 @@ Proceso id 4 {
 Proceso id 2 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
-	Prioridad_E: 24.953125;
+	Prioridad_E: 26.953125;
 }
-=======FIN====
+== FIN LISTA
 
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
@@ -762,12 +740,8 @@ Proceso id 2 {
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> PROC 5 A DORMIR 1 SEGUNDOS
--> PROCESOS LISTOS:
-=======INICIO====
-=======FIN====
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 1 {
 	Estado: BLOQUEADO
@@ -784,7 +758,7 @@ Proceso id 4 {
 Proceso id 2 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
-	Prioridad_E: 24.953125;
+	Prioridad_E: 26.953125;
 }
 
 Proceso id 5 {
@@ -792,8 +766,12 @@ Proceso id 5 {
 	Prioridad: 30;
 	Prioridad_E: 16.900391;
 }
-=======FIN====
+== FIN LISTA
 
+-> NO HAY LISTOS. ESPERA INT
+-> TRATANDO INT. DE RELOJ
+-> NO HAY LISTOS. ESPERA INT
+-> TRATANDO INT. DE RELOJ
 -> NO HAY LISTOS. ESPERA INT
 -> TRATANDO INT. DE RELOJ
 -> NO HAY LISTOS. ESPERA INT
@@ -876,18 +854,18 @@ Proceso id 5 {
 -> TRATANDO INT. DE RELOJ
 -> DESPERTANDO PROC: 1
 -> C.CONTEXTO POR BLOQUEO: de 5 a 1
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 1 {
 	Estado: EJECUCION
 	Prioridad: 40;
 	Prioridad_E: 62.843750;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 4 {
 	Estado: BLOQUEADO
@@ -898,7 +876,7 @@ Proceso id 4 {
 Proceso id 2 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
-	Prioridad_E: 24.953125;
+	Prioridad_E: 26.953125;
 }
 
 Proceso id 5 {
@@ -906,16 +884,12 @@ Proceso id 5 {
 	Prioridad: 30;
 	Prioridad_E: 16.900391;
 }
-=======FIN====
+== FIN LISTA
 
 -> TRATANDO INT. SW
 -> PROC 1 A DORMIR 2 SEGUNDOS
--> PROCESOS LISTOS:
-=======INICIO====
-=======FIN====
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 4 {
 	Estado: BLOQUEADO
@@ -926,7 +900,7 @@ Proceso id 4 {
 Proceso id 2 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
-	Prioridad_E: 24.953125;
+	Prioridad_E: 26.953125;
 }
 
 Proceso id 5 {
@@ -940,7 +914,7 @@ Proceso id 1 {
 	Prioridad: 40;
 	Prioridad_E: 62.843750;
 }
-=======FIN====
+== FIN LISTA
 
 -> NO HAY LISTOS. ESPERA INT
 -> TRATANDO INT. DE RELOJ
@@ -954,23 +928,23 @@ Proceso id 1 {
 -> TRATANDO INT. DE RELOJ
 -> DESPERTANDO PROC: 4
 -> C.CONTEXTO POR BLOQUEO: de 1 a 4
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 4 {
 	Estado: EJECUCION
 	Prioridad: 40;
 	Prioridad_E: 60.350914;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 2 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
-	Prioridad_E: 24.953125;
+	Prioridad_E: 26.953125;
 }
 
 Proceso id 5 {
@@ -984,20 +958,16 @@ Proceso id 1 {
 	Prioridad: 40;
 	Prioridad_E: 62.843750;
 }
-=======FIN====
+== FIN LISTA
 
 -> PROC 4 A DORMIR 2 SEGUNDOS
--> PROCESOS LISTOS:
-=======INICIO====
-=======FIN====
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 2 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
-	Prioridad_E: 24.953125;
+	Prioridad_E: 26.953125;
 }
 
 Proceso id 5 {
@@ -1017,12 +987,8 @@ Proceso id 4 {
 	Prioridad: 40;
 	Prioridad_E: 60.350914;
 }
-=======FIN====
+== FIN LISTA
 
--> NO HAY LISTOS. ESPERA INT
--> TRATANDO INT. DE RELOJ
--> NO HAY LISTOS. ESPERA INT
--> TRATANDO INT. DE RELOJ
 -> NO HAY LISTOS. ESPERA INT
 -> TRATANDO INT. DE RELOJ
 -> NO HAY LISTOS. ESPERA INT
@@ -1093,18 +1059,18 @@ Proceso id 4 {
 -> TRATANDO INT. DE RELOJ
 -> DESPERTANDO PROC: 2
 -> C.CONTEXTO POR BLOQUEO: de 4 a 2
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 2 {
 	Estado: EJECUCION
 	Prioridad: 30;
-	Prioridad_E: 24.953125;
+	Prioridad_E: 26.953125;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 5 {
 	Estado: BLOQUEADO
@@ -1123,7 +1089,7 @@ Proceso id 4 {
 	Prioridad: 40;
 	Prioridad_E: 60.350914;
 }
-=======FIN====
+== FIN LISTA
 
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
@@ -1147,18 +1113,18 @@ Proceso id 4 {
 -> DESPERTANDO PROC: 5
 Simplon procesando
 -> PROC 2 A DORMIR 1 SEGUNDOS
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 5 {
 	Estado: LISTO
 	Prioridad: 30;
 	Prioridad_E: 16.900391;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 1 {
 	Estado: BLOQUEADO
@@ -1175,23 +1141,23 @@ Proceso id 4 {
 Proceso id 2 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
-	Prioridad_E: 5.953125;
+	Prioridad_E: 7.953125;
 }
-=======FIN====
+== FIN LISTA
 
 -> C.CONTEXTO POR BLOQUEO: de 2 a 5
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 5 {
 	Estado: EJECUCION
 	Prioridad: 30;
 	Prioridad_E: 16.900391;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 1 {
 	Estado: BLOQUEADO
@@ -1208,9 +1174,9 @@ Proceso id 4 {
 Proceso id 2 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
-	Prioridad_E: 5.953125;
+	Prioridad_E: 7.953125;
 }
-=======FIN====
+== FIN LISTA
 
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
@@ -1232,18 +1198,18 @@ Proceso id 2 {
 -> PROCESO 5 AGOTA TIEMPO DE USO DE CPU
 -> COMPROBACION DE REAJUSTE GLOBAL DE PROCESOS, RESULTADO : NECESARIO REAJUSTE
 -> TRATANDO INT. SW
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 5 {
 	Estado: EJECUCION
 	Prioridad: 30;
 	Prioridad_E: 29.950195;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 1 {
 	Estado: BLOQUEADO
@@ -1260,21 +1226,17 @@ Proceso id 4 {
 Proceso id 2 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
-	Prioridad_E: 32.976562;
+	Prioridad_E: 33.976562;
 }
-=======FIN====
+== FIN LISTA
 
 -> C.CONTEXTO POR REPLANIFICACION: de 5 a 5
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> PROC 5 A DORMIR 1 SEGUNDOS
--> PROCESOS LISTOS:
-=======INICIO====
-=======FIN====
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 1 {
 	Estado: BLOQUEADO
@@ -1291,7 +1253,7 @@ Proceso id 4 {
 Proceso id 2 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
-	Prioridad_E: 32.976562;
+	Prioridad_E: 33.976562;
 }
 
 Proceso id 5 {
@@ -1299,7 +1261,7 @@ Proceso id 5 {
 	Prioridad: 30;
 	Prioridad_E: 27.950195;
 }
-=======FIN====
+== FIN LISTA
 
 -> NO HAY LISTOS. ESPERA INT
 -> TRATANDO INT. DE RELOJ
@@ -1465,18 +1427,18 @@ Proceso id 5 {
 -> TRATANDO INT. DE RELOJ
 -> DESPERTANDO PROC: 2
 -> C.CONTEXTO POR BLOQUEO: de 5 a 2
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 2 {
 	Estado: EJECUCION
 	Prioridad: 30;
-	Prioridad_E: 32.976562;
+	Prioridad_E: 33.976562;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 1 {
 	Estado: BLOQUEADO
@@ -1495,7 +1457,7 @@ Proceso id 5 {
 	Prioridad: 30;
 	Prioridad_E: 27.950195;
 }
-=======FIN====
+== FIN LISTA
 
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
@@ -1519,18 +1481,18 @@ Proceso id 5 {
 -> DESPERTANDO PROC: 5
 Simplon procesando
 -> PROC 2 A DORMIR 1 SEGUNDOS
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 5 {
 	Estado: LISTO
 	Prioridad: 30;
 	Prioridad_E: 27.950195;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 1 {
 	Estado: BLOQUEADO
@@ -1547,23 +1509,23 @@ Proceso id 4 {
 Proceso id 2 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
-	Prioridad_E: 13.976562;
+	Prioridad_E: 14.976562;
 }
-=======FIN====
+== FIN LISTA
 
 -> C.CONTEXTO POR BLOQUEO: de 2 a 5
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 5 {
 	Estado: EJECUCION
 	Prioridad: 30;
 	Prioridad_E: 27.950195;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 1 {
 	Estado: BLOQUEADO
@@ -1580,9 +1542,9 @@ Proceso id 4 {
 Proceso id 2 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
-	Prioridad_E: 13.976562;
+	Prioridad_E: 14.976562;
 }
-=======FIN====
+== FIN LISTA
 
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
@@ -1605,12 +1567,8 @@ Proceso id 2 {
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> PROC 5 A DORMIR 1 SEGUNDOS
--> PROCESOS LISTOS:
-=======INICIO====
-=======FIN====
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 1 {
 	Estado: BLOQUEADO
@@ -1627,7 +1585,7 @@ Proceso id 4 {
 Proceso id 2 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
-	Prioridad_E: 13.976562;
+	Prioridad_E: 14.976562;
 }
 
 Proceso id 5 {
@@ -1635,26 +1593,30 @@ Proceso id 5 {
 	Prioridad: 30;
 	Prioridad_E: 8.950195;
 }
-=======FIN====
+== FIN LISTA
 
+-> NO HAY LISTOS. ESPERA INT
+-> TRATANDO INT. DE RELOJ
+-> NO HAY LISTOS. ESPERA INT
+-> TRATANDO INT. DE RELOJ
 -> NO HAY LISTOS. ESPERA INT
 -> TRATANDO INT. DE RELOJ
 -> NO HAY LISTOS. ESPERA INT
 -> TRATANDO INT. DE RELOJ
 -> DESPERTANDO PROC: 1
 -> C.CONTEXTO POR BLOQUEO: de 5 a 1
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 1 {
 	Estado: EJECUCION
 	Prioridad: 40;
 	Prioridad_E: 71.421875;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 4 {
 	Estado: BLOQUEADO
@@ -1665,7 +1627,7 @@ Proceso id 4 {
 Proceso id 2 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
-	Prioridad_E: 13.976562;
+	Prioridad_E: 14.976562;
 }
 
 Proceso id 5 {
@@ -1673,16 +1635,12 @@ Proceso id 5 {
 	Prioridad: 30;
 	Prioridad_E: 8.950195;
 }
-=======FIN====
+== FIN LISTA
 
 -> TRATANDO INT. SW
 -> PROC 1 A DORMIR 2 SEGUNDOS
--> PROCESOS LISTOS:
-=======INICIO====
-=======FIN====
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 4 {
 	Estado: BLOQUEADO
@@ -1693,7 +1651,7 @@ Proceso id 4 {
 Proceso id 2 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
-	Prioridad_E: 13.976562;
+	Prioridad_E: 14.976562;
 }
 
 Proceso id 5 {
@@ -1707,7 +1665,7 @@ Proceso id 1 {
 	Prioridad: 40;
 	Prioridad_E: 71.421875;
 }
-=======FIN====
+== FIN LISTA
 
 -> NO HAY LISTOS. ESPERA INT
 -> TRATANDO INT. DE RELOJ
@@ -1721,23 +1679,23 @@ Proceso id 1 {
 -> TRATANDO INT. DE RELOJ
 -> DESPERTANDO PROC: 4
 -> C.CONTEXTO POR BLOQUEO: de 1 a 4
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 4 {
 	Estado: EJECUCION
 	Prioridad: 40;
 	Prioridad_E: 70.175461;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 2 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
-	Prioridad_E: 13.976562;
+	Prioridad_E: 14.976562;
 }
 
 Proceso id 5 {
@@ -1751,20 +1709,16 @@ Proceso id 1 {
 	Prioridad: 40;
 	Prioridad_E: 71.421875;
 }
-=======FIN====
+== FIN LISTA
 
 -> PROC 4 A DORMIR 2 SEGUNDOS
--> PROCESOS LISTOS:
-=======INICIO====
-=======FIN====
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 2 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
-	Prioridad_E: 13.976562;
+	Prioridad_E: 14.976562;
 }
 
 Proceso id 5 {
@@ -1784,12 +1738,8 @@ Proceso id 4 {
 	Prioridad: 40;
 	Prioridad_E: 70.175461;
 }
-=======FIN====
+== FIN LISTA
 
--> NO HAY LISTOS. ESPERA INT
--> TRATANDO INT. DE RELOJ
--> NO HAY LISTOS. ESPERA INT
--> TRATANDO INT. DE RELOJ
 -> NO HAY LISTOS. ESPERA INT
 -> TRATANDO INT. DE RELOJ
 -> NO HAY LISTOS. ESPERA INT
@@ -1936,18 +1886,18 @@ Proceso id 4 {
 -> TRATANDO INT. DE RELOJ
 -> DESPERTANDO PROC: 2
 -> C.CONTEXTO POR BLOQUEO: de 4 a 2
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 2 {
 	Estado: EJECUCION
 	Prioridad: 30;
-	Prioridad_E: 13.976562;
+	Prioridad_E: 14.976562;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 5 {
 	Estado: BLOQUEADO
@@ -1966,8 +1916,9 @@ Proceso id 4 {
 	Prioridad: 40;
 	Prioridad_E: 70.175461;
 }
-=======FIN====
+== FIN LISTA
 
+-> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
@@ -1985,18 +1936,18 @@ Proceso id 4 {
 -> PROCESO 2 AGOTA TIEMPO DE USO DE CPU
 -> COMPROBACION DE REAJUSTE GLOBAL DE PROCESOS, RESULTADO : NECESARIO REAJUSTE
 -> TRATANDO INT. SW
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 2 {
 	Estado: EJECUCION
 	Prioridad: 30;
 	Prioridad_E: 29.988281;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 5 {
 	Estado: BLOQUEADO
@@ -2015,29 +1966,29 @@ Proceso id 4 {
 	Prioridad: 40;
 	Prioridad_E: 75.087730;
 }
-=======FIN====
+== FIN LISTA
 
 -> C.CONTEXTO POR REPLANIFICACION: de 2 a 2
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
 -> DESPERTANDO PROC: 5
+-> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> PROC 2 A DORMIR 1 SEGUNDOS
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 5 {
 	Estado: LISTO
 	Prioridad: 30;
 	Prioridad_E: 34.475098;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 1 {
 	Estado: BLOQUEADO
@@ -2056,21 +2007,21 @@ Proceso id 2 {
 	Prioridad: 30;
 	Prioridad_E: 24.988281;
 }
-=======FIN====
+== FIN LISTA
 
 -> C.CONTEXTO POR BLOQUEO: de 2 a 5
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 5 {
 	Estado: EJECUCION
 	Prioridad: 30;
 	Prioridad_E: 34.475098;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 1 {
 	Estado: BLOQUEADO
@@ -2089,7 +2040,7 @@ Proceso id 2 {
 	Prioridad: 30;
 	Prioridad_E: 24.988281;
 }
-=======FIN====
+== FIN LISTA
 
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
@@ -2112,12 +2063,8 @@ Proceso id 2 {
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> PROC 5 A DORMIR 1 SEGUNDOS
--> PROCESOS LISTOS:
-=======INICIO====
-=======FIN====
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 1 {
 	Estado: BLOQUEADO
@@ -2142,7 +2089,7 @@ Proceso id 5 {
 	Prioridad: 30;
 	Prioridad_E: 15.475098;
 }
-=======FIN====
+== FIN LISTA
 
 -> NO HAY LISTOS. ESPERA INT
 -> TRATANDO INT. DE RELOJ
@@ -2308,18 +2255,18 @@ Proceso id 5 {
 -> TRATANDO INT. DE RELOJ
 -> DESPERTANDO PROC: 2
 -> C.CONTEXTO POR BLOQUEO: de 5 a 2
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 2 {
 	Estado: EJECUCION
 	Prioridad: 30;
 	Prioridad_E: 24.988281;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 1 {
 	Estado: BLOQUEADO
@@ -2338,19 +2285,20 @@ Proceso id 5 {
 	Prioridad: 30;
 	Prioridad_E: 15.475098;
 }
-=======FIN====
+== FIN LISTA
 
+-> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 -> DESPERTANDO PROC: 1
 -> TRATANDO INT. SW
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 2 {
 	Estado: EJECUCION
 	Prioridad: 30;
-	Prioridad_E: 22.988281;
+	Prioridad_E: 21.988281;
 }
 
 Proceso id 1 {
@@ -2358,10 +2306,10 @@ Proceso id 1 {
 	Prioridad: 40;
 	Prioridad_E: 75.710938;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 4 {
 	Estado: BLOQUEADO
@@ -2374,16 +2322,16 @@ Proceso id 5 {
 	Prioridad: 30;
 	Prioridad_E: 15.475098;
 }
-=======FIN====
+== FIN LISTA
 
 -> C.CONTEXTO POR REPLANIFICACION: de 2 a 1
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 2 {
 	Estado: LISTO
 	Prioridad: 30;
-	Prioridad_E: 22.988281;
+	Prioridad_E: 21.988281;
 }
 
 Proceso id 1 {
@@ -2391,10 +2339,10 @@ Proceso id 1 {
 	Prioridad: 40;
 	Prioridad_E: 75.710938;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 4 {
 	Estado: BLOQUEADO
@@ -2407,21 +2355,21 @@ Proceso id 5 {
 	Prioridad: 30;
 	Prioridad_E: 15.475098;
 }
-=======FIN====
+== FIN LISTA
 
 -> PROC 1 A DORMIR 2 SEGUNDOS
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 2 {
 	Estado: LISTO
 	Prioridad: 30;
-	Prioridad_E: 22.988281;
+	Prioridad_E: 21.988281;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 4 {
 	Estado: BLOQUEADO
@@ -2440,7 +2388,7 @@ Proceso id 1 {
 	Prioridad: 40;
 	Prioridad_E: 75.710938;
 }
-=======FIN====
+== FIN LISTA
 
 -> C.CONTEXTO POR BLOQUEO: de 1 a 2
 -> TRATANDO INT. DE RELOJ
@@ -2450,13 +2398,13 @@ Proceso id 1 {
 -> TRATANDO INT. DE RELOJ
 -> DESPERTANDO PROC: 4
 -> TRATANDO INT. SW
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 2 {
 	Estado: EJECUCION
 	Prioridad: 30;
-	Prioridad_E: 17.988281;
+	Prioridad_E: 16.988281;
 }
 
 Proceso id 4 {
@@ -2464,10 +2412,10 @@ Proceso id 4 {
 	Prioridad: 40;
 	Prioridad_E: 75.087730;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 5 {
 	Estado: BLOQUEADO
@@ -2480,16 +2428,16 @@ Proceso id 1 {
 	Prioridad: 40;
 	Prioridad_E: 75.710938;
 }
-=======FIN====
+== FIN LISTA
 
 -> C.CONTEXTO POR REPLANIFICACION: de 2 a 4
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 2 {
 	Estado: LISTO
 	Prioridad: 30;
-	Prioridad_E: 17.988281;
+	Prioridad_E: 16.988281;
 }
 
 Proceso id 4 {
@@ -2497,10 +2445,10 @@ Proceso id 4 {
 	Prioridad: 40;
 	Prioridad_E: 75.087730;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 5 {
 	Estado: BLOQUEADO
@@ -2513,21 +2461,21 @@ Proceso id 1 {
 	Prioridad: 40;
 	Prioridad_E: 75.710938;
 }
-=======FIN====
+== FIN LISTA
 
 -> PROC 4 A DORMIR 2 SEGUNDOS
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 2 {
 	Estado: LISTO
 	Prioridad: 30;
-	Prioridad_E: 17.988281;
+	Prioridad_E: 16.988281;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 5 {
 	Estado: BLOQUEADO
@@ -2546,10 +2494,9 @@ Proceso id 4 {
 	Prioridad: 40;
 	Prioridad_E: 75.087730;
 }
-=======FIN====
+== FIN LISTA
 
 -> C.CONTEXTO POR BLOQUEO: de 4 a 2
--> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
@@ -2564,18 +2511,18 @@ Proceso id 4 {
 -> DESPERTANDO PROC: 5
 Simplon procesando
 -> PROC 2 A DORMIR 1 SEGUNDOS
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 5 {
 	Estado: LISTO
 	Prioridad: 30;
 	Prioridad_E: 15.475098;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 1 {
 	Estado: BLOQUEADO
@@ -2594,21 +2541,21 @@ Proceso id 2 {
 	Prioridad: 30;
 	Prioridad_E: 5.988281;
 }
-=======FIN====
+== FIN LISTA
 
 -> C.CONTEXTO POR BLOQUEO: de 2 a 5
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 5 {
 	Estado: EJECUCION
 	Prioridad: 30;
 	Prioridad_E: 15.475098;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 1 {
 	Estado: BLOQUEADO
@@ -2627,7 +2574,7 @@ Proceso id 2 {
 	Prioridad: 30;
 	Prioridad_E: 5.988281;
 }
-=======FIN====
+== FIN LISTA
 
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
@@ -2648,18 +2595,18 @@ Proceso id 2 {
 -> PROCESO 5 AGOTA TIEMPO DE USO DE CPU
 -> COMPROBACION DE REAJUSTE GLOBAL DE PROCESOS, RESULTADO : NECESARIO REAJUSTE
 -> TRATANDO INT. SW
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 5 {
 	Estado: EJECUCION
 	Prioridad: 30;
 	Prioridad_E: 29.737549;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 1 {
 	Estado: BLOQUEADO
@@ -2678,7 +2625,7 @@ Proceso id 2 {
 	Prioridad: 30;
 	Prioridad_E: 32.994141;
 }
-=======FIN====
+== FIN LISTA
 
 -> C.CONTEXTO POR REPLANIFICACION: de 5 a 5
 -> TRATANDO INT. DE RELOJ
@@ -2686,12 +2633,8 @@ Proceso id 2 {
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> PROC 5 A DORMIR 1 SEGUNDOS
--> PROCESOS LISTOS:
-=======INICIO====
-=======FIN====
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 1 {
 	Estado: BLOQUEADO
@@ -2716,7 +2659,7 @@ Proceso id 5 {
 	Prioridad: 30;
 	Prioridad_E: 26.737549;
 }
-=======FIN====
+== FIN LISTA
 
 -> NO HAY LISTOS. ESPERA INT
 -> TRATANDO INT. DE RELOJ
@@ -2882,18 +2825,18 @@ Proceso id 5 {
 -> TRATANDO INT. DE RELOJ
 -> DESPERTANDO PROC: 2
 -> C.CONTEXTO POR BLOQUEO: de 5 a 2
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 2 {
 	Estado: EJECUCION
 	Prioridad: 30;
 	Prioridad_E: 32.994141;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 1 {
 	Estado: BLOQUEADO
@@ -2912,7 +2855,7 @@ Proceso id 5 {
 	Prioridad: 30;
 	Prioridad_E: 26.737549;
 }
-=======FIN====
+== FIN LISTA
 
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
@@ -2934,21 +2877,20 @@ Proceso id 5 {
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 -> DESPERTANDO PROC: 5
--> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> PROC 2 A DORMIR 1 SEGUNDOS
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 5 {
 	Estado: LISTO
 	Prioridad: 30;
 	Prioridad_E: 26.737549;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 1 {
 	Estado: BLOQUEADO
@@ -2965,23 +2907,23 @@ Proceso id 4 {
 Proceso id 2 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
-	Prioridad_E: 12.994141;
+	Prioridad_E: 13.994141;
 }
-=======FIN====
+== FIN LISTA
 
 -> C.CONTEXTO POR BLOQUEO: de 2 a 5
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 5 {
 	Estado: EJECUCION
 	Prioridad: 30;
 	Prioridad_E: 26.737549;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 1 {
 	Estado: BLOQUEADO
@@ -2998,9 +2940,9 @@ Proceso id 4 {
 Proceso id 2 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
-	Prioridad_E: 12.994141;
+	Prioridad_E: 13.994141;
 }
-=======FIN====
+== FIN LISTA
 
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
@@ -3023,12 +2965,8 @@ Proceso id 2 {
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> PROC 5 A DORMIR 1 SEGUNDOS
--> PROCESOS LISTOS:
-=======INICIO====
-=======FIN====
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 1 {
 	Estado: BLOQUEADO
@@ -3045,7 +2983,7 @@ Proceso id 4 {
 Proceso id 2 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
-	Prioridad_E: 12.994141;
+	Prioridad_E: 13.994141;
 }
 
 Proceso id 5 {
@@ -3053,8 +2991,12 @@ Proceso id 5 {
 	Prioridad: 30;
 	Prioridad_E: 7.737549;
 }
-=======FIN====
+== FIN LISTA
 
+-> NO HAY LISTOS. ESPERA INT
+-> TRATANDO INT. DE RELOJ
+-> NO HAY LISTOS. ESPERA INT
+-> TRATANDO INT. DE RELOJ
 -> NO HAY LISTOS. ESPERA INT
 -> TRATANDO INT. DE RELOJ
 -> NO HAY LISTOS. ESPERA INT
@@ -3145,18 +3087,18 @@ Proceso id 5 {
 -> TRATANDO INT. DE RELOJ
 -> DESPERTANDO PROC: 1
 -> C.CONTEXTO POR BLOQUEO: de 5 a 1
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 1 {
 	Estado: EJECUCION
 	Prioridad: 40;
 	Prioridad_E: 77.855469;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 4 {
 	Estado: BLOQUEADO
@@ -3167,7 +3109,7 @@ Proceso id 4 {
 Proceso id 2 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
-	Prioridad_E: 12.994141;
+	Prioridad_E: 13.994141;
 }
 
 Proceso id 5 {
@@ -3175,7 +3117,7 @@ Proceso id 5 {
 	Prioridad: 30;
 	Prioridad_E: 7.737549;
 }
-=======FIN====
+== FIN LISTA
 
 -> TRATANDO INT. SW
 proceso despertado con exito
@@ -3193,23 +3135,23 @@ Dormilon: termina
 -> TRATANDO INT. DE RELOJ
 -> DESPERTANDO PROC: 4
 -> C.CONTEXTO POR FIN: de 1 a 4
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 4 {
 	Estado: EJECUCION
 	Prioridad: 40;
 	Prioridad_E: 77.543869;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 2 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
-	Prioridad_E: 12.994141;
+	Prioridad_E: 13.994141;
 }
 
 Proceso id 5 {
@@ -3217,7 +3159,7 @@ Proceso id 5 {
 	Prioridad: 30;
 	Prioridad_E: 7.737549;
 }
-=======FIN====
+== FIN LISTA
 
 proceso despertado con exito
 Dormilon: termina
@@ -3282,32 +3224,29 @@ Dormilon: termina
 -> TRATANDO INT. DE RELOJ
 -> NO HAY LISTOS. ESPERA INT
 -> TRATANDO INT. DE RELOJ
--> NO HAY LISTOS. ESPERA INT
--> TRATANDO INT. DE RELOJ
--> NO HAY LISTOS. ESPERA INT
--> TRATANDO INT. DE RELOJ
 -> DESPERTANDO PROC: 2
 -> C.CONTEXTO POR FIN: de 4 a 2
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 2 {
 	Estado: EJECUCION
 	Prioridad: 30;
-	Prioridad_E: 12.994141;
+	Prioridad_E: 13.994141;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 5 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
 	Prioridad_E: 7.737549;
 }
-=======FIN====
+== FIN LISTA
 
+-> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
@@ -3324,25 +3263,25 @@ Proceso id 5 {
 -> PROCESO 2 AGOTA TIEMPO DE USO DE CPU
 -> COMPROBACION DE REAJUSTE GLOBAL DE PROCESOS, RESULTADO : NECESARIO REAJUSTE
 -> TRATANDO INT. SW
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 2 {
 	Estado: EJECUCION
 	Prioridad: 30;
 	Prioridad_E: 29.997070;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 5 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
 	Prioridad_E: 33.868774;
 }
-=======FIN====
+== FIN LISTA
 
 -> C.CONTEXTO POR REPLANIFICACION: de 2 a 2
 -> TRATANDO INT. DE RELOJ
@@ -3350,52 +3289,51 @@ Proceso id 5 {
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
 -> DESPERTANDO PROC: 5
+-> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> PROC 2 A DORMIR 1 SEGUNDOS
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 5 {
 	Estado: LISTO
 	Prioridad: 30;
 	Prioridad_E: 33.868774;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 2 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
 	Prioridad_E: 23.997070;
 }
-=======FIN====
+== FIN LISTA
 
 -> C.CONTEXTO POR BLOQUEO: de 2 a 5
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 5 {
 	Estado: EJECUCION
 	Prioridad: 30;
 	Prioridad_E: 33.868774;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 2 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
 	Prioridad_E: 23.997070;
 }
-=======FIN====
+== FIN LISTA
 
--> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
@@ -3416,12 +3354,8 @@ Proceso id 2 {
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> PROC 5 A DORMIR 1 SEGUNDOS
--> PROCESOS LISTOS:
-=======INICIO====
-=======FIN====
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 2 {
 	Estado: BLOQUEADO
@@ -3432,10 +3366,12 @@ Proceso id 2 {
 Proceso id 5 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
-	Prioridad_E: 14.868774;
+	Prioridad_E: 15.868774;
 }
-=======FIN====
+== FIN LISTA
 
+-> NO HAY LISTOS. ESPERA INT
+-> TRATANDO INT. DE RELOJ
 -> NO HAY LISTOS. ESPERA INT
 -> TRATANDO INT. DE RELOJ
 -> NO HAY LISTOS. ESPERA INT
@@ -3600,27 +3536,26 @@ Proceso id 5 {
 -> TRATANDO INT. DE RELOJ
 -> DESPERTANDO PROC: 2
 -> C.CONTEXTO POR BLOQUEO: de 5 a 2
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 2 {
 	Estado: EJECUCION
 	Prioridad: 30;
 	Prioridad_E: 23.997070;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 5 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
-	Prioridad_E: 14.868774;
+	Prioridad_E: 15.868774;
 }
-=======FIN====
+== FIN LISTA
 
--> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
@@ -3640,49 +3575,51 @@ Proceso id 5 {
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 -> DESPERTANDO PROC: 5
+-> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> PROC 2 A DORMIR 1 SEGUNDOS
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 5 {
 	Estado: LISTO
 	Prioridad: 30;
-	Prioridad_E: 14.868774;
+	Prioridad_E: 15.868774;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 2 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
 	Prioridad_E: 4.997070;
 }
-=======FIN====
+== FIN LISTA
 
 -> C.CONTEXTO POR BLOQUEO: de 2 a 5
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 5 {
 	Estado: EJECUCION
 	Prioridad: 30;
-	Prioridad_E: 14.868774;
+	Prioridad_E: 15.868774;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 2 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
 	Prioridad_E: 4.997070;
 }
-=======FIN====
+== FIN LISTA
 
+-> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
@@ -3701,39 +3638,34 @@ Proceso id 2 {
 -> PROCESO 5 AGOTA TIEMPO DE USO DE CPU
 -> COMPROBACION DE REAJUSTE GLOBAL DE PROCESOS, RESULTADO : NECESARIO REAJUSTE
 -> TRATANDO INT. SW
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 5 {
 	Estado: EJECUCION
 	Prioridad: 30;
 	Prioridad_E: 29.934387;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 2 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
 	Prioridad_E: 32.498535;
 }
-=======FIN====
+== FIN LISTA
 
 -> C.CONTEXTO POR REPLANIFICACION: de 5 a 5
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> PROC 5 A DORMIR 1 SEGUNDOS
--> PROCESOS LISTOS:
-=======INICIO====
-=======FIN====
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 2 {
 	Estado: BLOQUEADO
@@ -3744,9 +3676,9 @@ Proceso id 2 {
 Proceso id 5 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
-	Prioridad_E: 25.934387;
+	Prioridad_E: 26.934387;
 }
-=======FIN====
+== FIN LISTA
 
 -> NO HAY LISTOS. ESPERA INT
 -> TRATANDO INT. DE RELOJ
@@ -3912,25 +3844,25 @@ Proceso id 5 {
 -> TRATANDO INT. DE RELOJ
 -> DESPERTANDO PROC: 2
 -> C.CONTEXTO POR BLOQUEO: de 5 a 2
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 2 {
 	Estado: EJECUCION
 	Prioridad: 30;
 	Prioridad_E: 32.498535;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 5 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
-	Prioridad_E: 25.934387;
+	Prioridad_E: 26.934387;
 }
-=======FIN====
+== FIN LISTA
 
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
@@ -3954,62 +3886,59 @@ Proceso id 5 {
 -> DESPERTANDO PROC: 5
 Simplon procesando
 -> PROC 2 A DORMIR 1 SEGUNDOS
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 5 {
 	Estado: LISTO
 	Prioridad: 30;
-	Prioridad_E: 25.934387;
+	Prioridad_E: 26.934387;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 2 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
 	Prioridad_E: 13.498535;
 }
-=======FIN====
+== FIN LISTA
 
 -> C.CONTEXTO POR BLOQUEO: de 2 a 5
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 5 {
 	Estado: EJECUCION
 	Prioridad: 30;
-	Prioridad_E: 25.934387;
+	Prioridad_E: 26.934387;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 2 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
 	Prioridad_E: 13.498535;
 }
-=======FIN====
+== FIN LISTA
 
 -> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE TERMINAL v
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE TERMINAL i
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
--> TRATANDO INT. DE TERMINAL m
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
+-> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
 -> TRATANDO INT. DE RELOJ
@@ -4019,12 +3948,8 @@ Proceso id 2 {
 -> TRATANDO INT. DE RELOJ
 Simplon procesando
 -> PROC 5 A DORMIR 1 SEGUNDOS
--> PROCESOS LISTOS:
-=======INICIO====
-=======FIN====
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 2 {
 	Estado: BLOQUEADO
@@ -4035,9 +3960,9 @@ Proceso id 2 {
 Proceso id 5 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
-	Prioridad_E: 6.934387;
+	Prioridad_E: 7.934387;
 }
-=======FIN====
+== FIN LISTA
 
 -> NO HAY LISTOS. ESPERA INT
 -> TRATANDO INT. DE RELOJ
@@ -4065,8 +3990,6 @@ Proceso id 5 {
 -> TRATANDO INT. DE RELOJ
 -> NO HAY LISTOS. ESPERA INT
 -> TRATANDO INT. DE RELOJ
--> NO HAY LISTOS. ESPERA INT
--> TRATANDO INT. DE TERMINAL  
 -> NO HAY LISTOS. ESPERA INT
 -> TRATANDO INT. DE RELOJ
 -> NO HAY LISTOS. ESPERA INT
@@ -4205,25 +4128,25 @@ Proceso id 5 {
 -> TRATANDO INT. DE RELOJ
 -> DESPERTANDO PROC: 2
 -> C.CONTEXTO POR BLOQUEO: de 5 a 2
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 2 {
 	Estado: EJECUCION
 	Prioridad: 30;
 	Prioridad_E: 13.498535;
 }
-=======FIN====
+== FIN LISTA
 
--> PROCESOS BLOQUEADOS:
-=======INICIO====
+
+== LISTA DE PROCESOS BLOQUEADOS
 
 Proceso id 5 {
 	Estado: BLOQUEADO
 	Prioridad: 30;
-	Prioridad_E: 6.934387;
+	Prioridad_E: 7.934387;
 }
-=======FIN====
+== FIN LISTA
 
 simplon: termina
 -> FIN PROCESO 2
@@ -4267,19 +4190,15 @@ simplon: termina
 -> TRATANDO INT. DE RELOJ
 -> DESPERTANDO PROC: 5
 -> C.CONTEXTO POR FIN: de 2 a 5
--> PROCESOS LISTOS:
-=======INICIO====
+
+== LISTA DE PROCESOS LISTOS
 
 Proceso id 5 {
 	Estado: EJECUCION
 	Prioridad: 30;
-	Prioridad_E: 6.934387;
+	Prioridad_E: 7.934387;
 }
-=======FIN====
-
--> PROCESOS BLOQUEADOS:
-=======INICIO====
-=======FIN====
+== FIN LISTA
 
 simplon: termina
 -> FIN PROCESO 5

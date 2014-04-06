@@ -99,9 +99,16 @@ static void eliminar_elem(lista_BCPs *lista, BCP * proc){
  */
 void muestra_lista(lista_BCPs *lista){
 	BCP *paux=lista->primero;
+    int cierre_lista = 0;
     /* Si hay un proceso mostramos que tipo de lista es mediante su estado */
     /* recorremos la lista mientras hayan procesos */
-    printk("=======INICIO====\n");
+    if(paux){
+        printk("\n== LISTA DE PROCESOS ");
+        cierre_lista = 1;
+        if (paux->estado == LISTO || paux->estado == EJECUCION) printk("LISTOS");
+        else if (paux->estado == BLOQUEADO) printk ("BLOQUEADOS");
+        printk("\n");
+    }
     while(paux){
         printk("\nProceso id %d {\n",paux->id);
         printk("\tEstado: ");
@@ -119,7 +126,8 @@ void muestra_lista(lista_BCPs *lista){
         printk("}\n");
         paux = paux->siguiente;
     }
-    printk("=======FIN====\n\n");
+    if(cierre_lista)
+        printk("== FIN LISTA\n\n");
     return;
 }
 
@@ -231,15 +239,10 @@ static void bloquear(lista_BCPs * lista){
     eliminar_elem(&lista_listos, p_proc_anterior);
     insertar_ultimo(lista, p_proc_anterior);
 
-//////////////////////////////////////////
     /* Mostramos lista listos */
-
-    printk("-> PROCESOS LISTOS:\n");
     muestra_lista(&lista_listos);
     /* Mostramos lista dormidos */
-    printk("-> PROCESOS BLOQUEADOS:\n");
     muestra_lista(&lista_dormidos);
-////////////////////////////////////////////////
 
     /* llamamos al planificador para recuperar el nuevo proceso */
     p_proc_actual=planificador();
@@ -252,16 +255,11 @@ static void bloquear(lista_BCPs * lista){
             &(p_proc_actual->contexto_regs));
     /* Cancelamos la replanificacion que pueda haber pendiente */
     replanificacion_pendiente = 0;
-    
-//////////////////////////////////////////
-    /* Mostramos lista listos */
 
-    printk("-> PROCESOS LISTOS:\n");
+    /* Mostramos lista listos */
     muestra_lista(&lista_listos);
     /* Mostramos lista dormidos */
-    printk("-> PROCESOS BLOQUEADOS:\n");
     muestra_lista(&lista_dormidos);
-////////////////////////////////////////////////
     /*  volvemos a poner interrupciones como antes */
 	fijar_nivel_int(nivel);
 
@@ -304,10 +302,8 @@ static void desbloquear(BCP * proc, lista_BCPs * lista){
 static void replanificar(){
 
     /* Mostramos lista listos */
-    printk("-> PROCESOS LISTOS:\n");
     muestra_lista(&lista_listos);
     /* Mostramos lista dormidos */
-    printk("-> PROCESOS BLOQUEADOS:\n");
     muestra_lista(&lista_dormidos);
     
     BCP * p_proc_anterior;
@@ -317,8 +313,8 @@ static void replanificar(){
     /* recuperamos el proceso segun el planificador */
     p_proc_actual = planificador();
 
-	printk("-> C.CONTEXTO POR REPLANIFICACION: de %d a %d\n",
-			p_proc_anterior->id, p_proc_actual->id);
+    printk("-> C.CONTEXTO POR REPLANIFICACION: de %d a %d\n",
+        p_proc_anterior->id, p_proc_actual->id);
     
     p_proc_actual->estado=EJECUCION;
     cambio_contexto(&(p_proc_anterior->contexto_regs), 
@@ -341,8 +337,7 @@ static void ajustar_dormidos(){
        // printk("Proceso id: %i, ticks remaining: %i\n", paux->id, paux->nticks);
         paux->nticks--;
         if(paux->nticks == 0){
-	        printk("-> DESPERTANDO PROC: %d\n", paux->id);
-         
+            printk("-> DESPERTANDO PROC: %d\n", paux->id);
             // apuntamos al paux a bloquar 
             paux_a_bloquear = paux;
             //apuntamos al paux siguiente
@@ -503,8 +498,8 @@ static void tratar_llamsis(){
 		res=(tabla_servicios[nserv].fservicio)();
 	else
 		res=-1;		/* servicio no existente */
-        
-	escribir_registro(0,res);
+	
+    escribir_registro(0,res);
 	return;
 }
 
@@ -580,7 +575,7 @@ static int crear_tarea(char *prog){
 		
         /* lo inserta al final de cola de listos */
 		insertar_ultimo(&lista_listos, p_proc);
-    
+        
         /*  volvemos a poner interrupciones como antes */
         fijar_nivel_int(nivel);
 		
@@ -678,16 +673,11 @@ int sis_fijar_prio(){
     unsigned int prioridad, prioridad_anterior;
     float prioridad_efectiva_anterior;
 
-//////////////////////////////////////////
     /* Mostramos lista listos */
-
-    printk("-> PROCESOS LISTOS:\n");
     muestra_lista(&lista_listos);
     /* Mostramos lista dormidos */
-    printk("-> PROCESOS BLOQUEADOS:\n");
     muestra_lista(&lista_dormidos);
-////////////////////////////////////////////////
-
+    /* Obtenemos la prioridad a aplicar */
     prioridad=(unsigned int)leer_registro(1);
 
     /* comprobamos que sea una prioridad valida */
@@ -696,17 +686,16 @@ int sis_fijar_prio(){
     
     printk("-> PROC %d, FIJANDO PRIORIDAD DE %d A %d\n",p_proc_actual->id, p_proc_actual->prioridad, prioridad);
     
-    /* nos guardamos la prioridad actual como la anterior */
+    /* nos guardamos la prioridad actual (base y efectiva) como la anterior */
     prioridad_anterior = p_proc_actual->prioridad;
     prioridad_efectiva_anterior = p_proc_actual->prioridad_efectiva;
-    p_proc_actual->prioridad = prioridad;
-    /* comprobamos las condiciones para asignar la prio_efectiva */
+
+    p_proc_actual->prioridad = prioridad; /*  asignamos la prioridad base */
+    /* comprobamos las condiciones para asignar una prio_efectiva u otra */
     if(prioridad >= prioridad_anterior){
         /* la prio_e = prio_e_ant * (prio + prio_ant) /(2 prio_ant)*/
-        printk("CAMBI A MAYOR\n");
         p_proc_actual->prioridad_efectiva *= ( (prioridad + prioridad_anterior)/(prioridad_anterior * 2.0) );
     }else{
-        printk("CAMBI A MENOR\n");
         /* La prio_e = prio_e_ant * (prio / prio_ant) evitando problemas con enteros*/
         p_proc_actual->prioridad_efectiva *= (prioridad / (prioridad_anterior * (1.0)));
     }
@@ -717,15 +706,13 @@ int sis_fijar_prio(){
     /* comprobamos si se cumplen las condiciones para replanificar */
     if(p_proc_actual->prioridad_efectiva < prioridad_efectiva_anterior){
         /* si la prioridad_anterior es mayor, hay que replanificar */
-        if(!replanificacion_pendiente){
+        if(!replanificacion_pendiente){ /* comprobamos que no haya ya una replanificacino pendiente */
             replanificacion_pendiente = 1;
             activar_int_SW();
         }
-    
     }
     return 0;
-    
-} 
+}
 
 /*
  *
