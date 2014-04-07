@@ -285,7 +285,7 @@ static void desbloquear(BCP * proc, lista_BCPs * lista){
     /* si no hay una replanificacion pendiente, comprobamos si es necesaria */
     if(!replanificacion_pendiente){
         /* comprobamos la prioridad del nuevo proceso */
-        if(proc->prioridad > p_proc_actual->prioridad){
+        if(proc->prioridad_efectiva > p_proc_actual->prioridad_efectiva){
             /* activamos la interrupcion con la replanificacion pendiente */
             replanificacion_pendiente = 1;
             activar_int_SW();
