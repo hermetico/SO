@@ -99,16 +99,8 @@ static void eliminar_elem(lista_BCPs *lista, BCP * proc){
  */
 void muestra_lista(lista_BCPs *lista){
 	BCP *paux=lista->primero;
-    int cierre_lista = 0;
     /* Si hay un proceso mostramos que tipo de lista es mediante su estado */
     /* recorremos la lista mientras hayan procesos */
-    if(paux){
-        printk("\n== LISTA DE PROCESOS ");
-        cierre_lista = 1;
-        if (paux->estado == LISTO || paux->estado == EJECUCION) printk("LISTOS");
-        else if (paux->estado == BLOQUEADO) printk ("BLOQUEADOS");
-        printk("\n");
-    }
     while(paux){
         printk("\nProceso id %d {\n",paux->id);
         printk("\tEstado: ");
@@ -126,8 +118,6 @@ void muestra_lista(lista_BCPs *lista){
         printk("}\n");
         paux = paux->siguiente;
     }
-    if(cierre_lista)
-        printk("== FIN LISTA\n\n");
     return;
 }
 
@@ -153,24 +143,6 @@ static void espera_int(){
 	fijar_nivel_int(nivel);
 }
 
-/*
- * funcion actual que reajusta las prioridades de todos los procesos si es necesario
- */
-static void reajustar_prioridades(){
-    int  contador, prioridad;
-    int prioridad_e;
-    printk("NECESARIO REAJUSTE GLOBAL DE PRIORIDADES\n");
-    for(contador = 0; contador < MAX_PROC; contador++){
-        /* comprobamos que en el BCP hay un proceso */
-        if(tabla_procs[contador].estado != NO_USADA){
-            prioridad_e = tabla_procs[contador].prioridad_efectiva;
-            prioridad = tabla_procs[contador].prioridad;
-            tabla_procs[contador].prioridad_efectiva = (prioridad_e / 2) + prioridad;
-        }
-    }
-
-}
-
 /* 
  *Funcion que retorna el proceso con maxima prioridad
  */
@@ -181,14 +153,8 @@ static BCP * maxima_prioridad(lista_BCPs *lista){
     /* recorremos la lista y nos quedamos con el proceso con max_prio */
     while(paux->siguiente){
         paux = paux->siguiente;
-        if(paux->prioridad_efectiva > max_prio->prioridad_efectiva) max_prio = paux;
+        if(paux->prioridad > max_prio->prioridad) max_prio = paux;
     }
-    /* si la maxima prioridad del proceso es 0, es necesario reajuste */
-    if(max_prio->prioridad_efectiva == 0){
-        reajustar_prioridades();
-        return maxima_prioridad(lista);
-    }
-
     return max_prio;
 }
 
@@ -270,17 +236,12 @@ static void bloquear(lista_BCPs * lista){
 	printk("-> C.CONTEXTO POR BLOQUEO: de %d a %d\n",
 			p_proc_anterior->id, p_proc_actual->id);
 
-    /* Cancelamos la replanificacion que pueda haber pendiente */
-    replanificacion_pendiente = 0;
-    
     p_proc_actual->estado=EJECUCION;
     cambio_contexto(&(p_proc_anterior->contexto_regs), 
             &(p_proc_actual->contexto_regs));
-
-    /* Mostramos lista listos */
-    muestra_lista(&lista_listos);
-    /* Mostramos lista dormidos */
-    muestra_lista(&lista_dormidos);
+    /* Cancelamos la replanificacion que pueda haber pendiente */
+    replanificacion_pendiente = 0;
+    
     /*  volvemos a poner interrupciones como antes */
 	fijar_nivel_int(nivel);
 
@@ -306,7 +267,7 @@ static void desbloquear(BCP * proc, lista_BCPs * lista){
     /* si no hay una replanificacion pendiente, comprobamos si es necesaria */
     if(!replanificacion_pendiente){
         /* comprobamos la prioridad del nuevo proceso */
-        if(proc->prioridad_efectiva > p_proc_actual->prioridad_efectiva){
+        if(proc->prioridad > p_proc_actual->prioridad){
             /* activamos la interrupcion con la replanificacion pendiente */
             replanificacion_pendiente = 1;
             activar_int_SW();
@@ -322,6 +283,12 @@ static void desbloquear(BCP * proc, lista_BCPs * lista){
  */
 static void replanificar(){
 
+    /* Mostramos lista listos */
+    printk("-> PROCESOS LISTOS:\n");
+    muestra_lista(&lista_listos);
+    /* Mostramos lista dormidos */
+    printk("-> PROCESOS BLOQUEADOS:\n");
+    muestra_lista(&lista_dormidos);
     
     BCP * p_proc_anterior;
     /*  ponemos le proceso actual de EJECUCION a LISTO */
@@ -330,21 +297,14 @@ static void replanificar(){
     /* recuperamos el proceso segun el planificador */
     p_proc_actual = planificador();
 
-    printk("-> C.CONTEXTO POR REPLANIFICACION: de %d a %d\n",
-        p_proc_anterior->id, p_proc_actual->id);
+	printk("-> C.CONTEXTO POR REPLANIFICACION: de %d a %d\n",
+			p_proc_anterior->id, p_proc_actual->id);
     
-    /* Cancelamos la replanificacion que pueda haber pendiente */
-    replanificacion_pendiente = 0;
-
     p_proc_actual->estado=EJECUCION;
     cambio_contexto(&(p_proc_anterior->contexto_regs), 
             &(p_proc_actual->contexto_regs));
-    
-    /* Mostramos lista listos */
-    muestra_lista(&lista_listos);
-    /* Mostramos lista dormidos */
-    muestra_lista(&lista_dormidos);
-    
+    /* Cancelamos la replanificacion que pueda haber pendiente */
+    replanificacion_pendiente = 0;
     return;
 }
 /*
@@ -361,7 +321,8 @@ static void ajustar_dormidos(){
        // printk("Proceso id: %i, ticks remaining: %i\n", paux->id, paux->nticks);
         paux->nticks--;
         if(paux->nticks == 0){
-            printk("-> DESPERTANDO PROC: %d\n", paux->id);
+	        printk("-> DESPERTANDO PROC: %d\n", paux->id);
+         
             // apuntamos al paux a bloquar 
             paux_a_bloquear = paux;
             //apuntamos al paux siguiente
@@ -371,61 +332,6 @@ static void ajustar_dormidos(){
         }else{
             paux = paux->siguiente;
         }
-    }
-    return;
-}
-
-///* 
-// * Funcio que comprueba la necesidad de reajustar la prioridad de todos los procesos
-// * con la condicion de que todos los listos tengan prioridad efectiva <= 0
-// * */
-//static int comprobar_necesario_reajustar_prioridades(){
-//    BCP * paux;
-//    int nivel, reajustar_todos;
-//
-//    printk("-> COMPROBACION DE REAJUSTE GLOBAL DE PROCESOS,");
-//    reajustar_todos = 1; /* true por defecto */
-//
-//    /* detenemos interrupciones */
-//    nivel=fijar_nivel_int(NIVEL_3); /*nivel 3 detiene todas */
-//    /* recorremos los procesos listos */
-//    paux = lista_listos.primero;
-//    while(paux){
-//        if( paux->prioridad_efectiva > 0 ){
-//            printk("RESULTADO : REAJUSTE NO NECESARIO\n");
-//            reajustar_todos = 0;
-//            break;
-//        }
-//        paux = paux->siguiente;
-//    }
-//    /* activamos las interrupciones */
-//    fijar_nivel_int(nivel);
-//
-//    return reajustar_todos;
-//
-//}
-
-
-/*
- * funcion auxiliar que actualiza la prioridad
- * del proceso actual
- */
-static void ajustar_prioridad_actual(){
-
-    /* Hay ocasiones que el proceso actual esta bloqueado y no hay ninguno listo */
-    if(p_proc_actual->estado != EJECUCION ) return;
-    //decrementamos la prio_efectiva del proceso actual
-    p_proc_actual->prioridad_efectiva -=1;
-    // si ha llegado a 0
-    if(p_proc_actual->prioridad_efectiva == 0){
-        printk("-> PROCESO %d AGOTA TIEMPO DE USO DE CPU\n",p_proc_actual->id);
-        /* ahora podemos comprobar si es necesario reajustar prioridades */
-        //  NO NECESARIO, se hace dentro de funcion maxima_prioridad() !
-        //if(comprobar_necesario_reajustar_prioridades())
-        //    reajustar_prioridades();
-        /* ahora replanificamos */
-        replanificacion_pendiente = 1;
-        activar_int_SW();
     }
     return;
 }
@@ -487,11 +393,9 @@ static void int_terminal(){
 static void int_reloj(){
 
 	printk("-> TRATANDO INT. DE RELOJ\n");
-    // ajustamos prio del proceso actual
-    ajustar_prioridad_actual();
     ajustar_dormidos();
 
-    return;
+        return;
 }
 
 /*
@@ -509,8 +413,8 @@ static void tratar_llamsis(){
 		res=(tabla_servicios[nserv].fservicio)();
 	else
 		res=-1;		/* servicio no existente */
-	
-    escribir_registro(0,res);
+        
+	escribir_registro(0,res);
 	return;
 }
 
@@ -561,27 +465,23 @@ static int crear_tarea(char *prog){
 		p_proc->estado=LISTO;
         /* si hay proceso actual es el padre del nuevo */
         if (p_proc_actual){
-            // incluimos la id del padre
-            p_proc->id_padre = p_proc_actual->id;
             // la prioridad base se mantiene
             p_proc->prioridad = p_proc_actual->prioridad;
+            /*AQUESTA PART ESTA COMENTADA PER QUE ES DE LA SEGONA PART DE LA PRACTICA */
             /* comprobamos las condiciones para repartir la prio_efectiva */
-            if(!(p_proc_actual->prioridad == MIN_PRIO &&
-                    p_proc_actual->prioridad_efectiva <= MIN_PRIO)){
+            //if(!p_proc_actual->prioridad == MIN_PRIO &&
+            //        p_proc_actual->prioridad_efectiva <= MIN_PRIO)){
                 /* dividimos la prioridad del padre
                  * por que se repartira con el hijo 
                  */
-                p_proc_actual->prioridad_efectiva /=  2;
-            }
-            // asignamos la prioridad efectiva al hijo
-            p_proc->prioridad_efectiva = p_proc_actual->prioridad_efectiva;
+            //    p_proc_actual->prioridad_efectiva /=  2.0;
+            //}
+            // asignamos la prioridad al hijo
+            //p_proc->prioridad_efectiva = p_proc_actual->prioridad_efectiva;
         }else{
-            //incluimod la id de huerfano
-            p_proc->id_padre = ID_HUERFANO;
             /* Si no existe proceso actual, es que es el proceso inicial
             * y fijamos su prio a min*/
             p_proc->prioridad = MIN_PRIO;
-            //asignamos la efectiva
             p_proc->prioridad_efectiva = MIN_PRIO;
         }
 
@@ -590,7 +490,7 @@ static int crear_tarea(char *prog){
 		
         /* lo inserta al final de cola de listos */
 		insertar_ultimo(&lista_listos, p_proc);
-        
+    
         /*  volvemos a poner interrupciones como antes */
         fijar_nivel_int(nivel);
 		
@@ -686,52 +586,25 @@ int sis_terminar_proceso(){
  */
 int sis_fijar_prio(){
     unsigned int prioridad, prioridad_anterior;
-    int prioridad_efectiva_anterior;
-
-    /* Obtenemos la prioridad a aplicar */
     prioridad=(unsigned int)leer_registro(1);
 
     /* comprobamos que sea una prioridad valida */
     if (prioridad < MIN_PRIO) return -1;
     if (prioridad > MAX_PRIO) return -1;
-    
-    printk("-> PROC %d, FIJANDO PRIORIDAD DE %d A %d\n",p_proc_actual->id, p_proc_actual->prioridad, prioridad);
-    
-    /* nos guardamos la prioridad actual (base y efectiva) como la anterior */
+    /* nos guardamos la prioridad actual como la anterior */
     prioridad_anterior = p_proc_actual->prioridad;
-    prioridad_efectiva_anterior = p_proc_actual->prioridad_efectiva;
-
-    p_proc_actual->prioridad = prioridad; /*  asignamos la prioridad base */
-    /* comprobamos las condiciones para asignar una prio_efectiva u otra */
-    if(prioridad >= prioridad_anterior){
-        /* la prio_e = prio_e_ant * (prio + prio_ant) /(2 prio_ant)*/
-        p_proc_actual->prioridad_efectiva *= ( (prioridad + prioridad_anterior)/(prioridad_anterior * 2) );
-    }else{
-        /* La prio_e = prio_e_ant * (prio / prio_ant) evitando problemas con enteros*/
-        p_proc_actual->prioridad_efectiva *= (prioridad / (prioridad_anterior ));
-    }
-    
-    printk("-> PROC %d, FIJANDO PRIORIDAD_E DE %d A %d\n",p_proc_actual->id,
-            prioridad_efectiva_anterior, p_proc_actual->prioridad_efectiva);
-    
-    /* Mostramos lista listos */
-    muestra_lista(&lista_listos);
-    /* Mostramos lista dormidos */
-    muestra_lista(&lista_dormidos);
-
-    /* comprobamos si se cumplen las condiciones para replanificar */
-    if(p_proc_actual->prioridad_efectiva < prioridad_efectiva_anterior){
-        /* comprobamos que no sigue siendo el mismo con la max prio */
-        if(p_proc_actual != maxima_prioridad(&lista_listos)){
-            /* si la prioridad_anterior es mayor, hay que replanificar */
-            if(!replanificacion_pendiente){ /* comprobamos que no haya ya una replanificacino pendiente */
-                replanificacion_pendiente = 1;
-                activar_int_SW();
-            }
+    printk("-> PROC %d, FIJANDO PRIORIDAD DE %d A %d\n",p_proc_actual->id, p_proc_actual->prioridad, prioridad);
+    p_proc_actual->prioridad = prioridad;
+    /* si la prioridad_anterior es mayor, hay que replanificar */
+    if(prioridad_anterior > prioridad){
+        if(!replanificacion_pendiente){
+            replanificacion_pendiente = 1;
+            activar_int_SW();
         }
     }
     return 0;
-}
+    
+} 
 
 /*
  *

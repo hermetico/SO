@@ -42,12 +42,6 @@
 #define MIN_PRIO 10
 #define MAX_PRIO 50
 
-/*
- * posibles id de padre
- */
-
-#define ID_HUERFANO -1
-#define ID_INIT 0
 
 /*
  * Niveles de ejecución del procesador. 

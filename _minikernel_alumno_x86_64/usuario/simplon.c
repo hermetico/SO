@@ -21,16 +21,16 @@ int main(){
 	//for (i=0; i<TOT_ITER; i++)
 	//	printf("simplon: i %d\n", i);
 	printf("simplon: comienza\n");
+       
     i = get_pid();
+        
 	printf("PID del simplon: %d\n", i);
-    printf("Proceso largo en marcha\n");
+    printf("Proceso muy largo en marcha\n");
     alert = 0;
 	for( i = 0; i < TOT_ITER; i++){
-        if(++alert == 100000000){
+        if(++alert == 10000000){
             alert = 0;
-            printf("Simplon a dormir 1 segundo\n");
-            dormir(1);
-            printf("Desperando simplon, proceso largo en marcha\n");
+            printf("Simplon procesando\n");
         }
     }
     printf("simplon: termina\n");

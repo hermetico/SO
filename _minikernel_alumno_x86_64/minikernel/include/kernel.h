@@ -32,7 +32,6 @@ typedef struct BCP_t *BCPptr;
 
 typedef struct BCP_t {
         int id;				/* ident. del proceso */
-        int id_padre;           /* ident. del proceso padre o ID_HUERFANO o ID_INIT*/
         int estado;			/* TERMINADO|LISTO|EJECUCION|BLOQUEADO*/
         int nticks;         /* ticks que faltan para cambiarlo de estado */
         contexto_t contexto_regs;	/* copia de regs. de UCP */
