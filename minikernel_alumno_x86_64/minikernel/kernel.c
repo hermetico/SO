@@ -321,15 +321,20 @@ static void desbloquear(BCP * proc, lista_BCPs * lista){
  * el planificador
  */
 static void replanificar(){
+    BCP * p_proc_anterior, *p_proc_nuevo;
 
-    
-    BCP * p_proc_anterior;
+    /* comprobamos que el planificador no nos retorna el mismo proceso
+     * que el actual, si es asi no es necesario replanificar*/
+    p_proc_nuevo = planificador();
+    //if(p_proc_nuevo == p_proc_actual) return;
+
     /*  ponemos le proceso actual de EJECUCION a LISTO */
     p_proc_actual->estado=LISTO;
     p_proc_anterior = p_proc_actual;
     /* recuperamos el proceso segun el planificador */
-    p_proc_actual = planificador();
+    p_proc_actual = p_proc_nuevo;
 
+    
     printk("-> C.CONTEXTO POR REPLANIFICACION: de %d a %d\n",
         p_proc_anterior->id, p_proc_actual->id);
     
@@ -423,9 +428,11 @@ static void ajustar_prioridad_actual(){
         //  NO NECESARIO, se hace dentro de funcion maxima_prioridad() !
         //if(comprobar_necesario_reajustar_prioridades())
         //    reajustar_prioridades();
-        /* ahora replanificamos */
-        replanificacion_pendiente = 1;
-        activar_int_SW();
+        /* ahora replanificamos siempre que el planificador nos de un proceso diferente*/
+        if(p_proc_actual != planificador()){
+            replanificacion_pendiente = 1;
+            activar_int_SW();
+        }
     }
     return;
 }
