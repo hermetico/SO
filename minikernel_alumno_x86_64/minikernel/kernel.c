@@ -93,11 +93,10 @@ static void eliminar_elem(lista_BCPs *lista, BCP * proc){
 	}
 }
 
-
 /*
  * Funcion auxiliar que muestra los procesos de una lista con sus datos mas relevantes 
  */
-void muestra_lista(lista_BCPs *lista){
+static void muestra_lista(lista_BCPs *lista){
 	BCP *paux=lista->primero;
     int cierre_lista = 0;
     /* Si hay un proceso mostramos que tipo de lista es mediante su estado */
@@ -151,6 +150,22 @@ static void espera_int(){
 	nivel=fijar_nivel_int(NIVEL_1);
 	halt();
 	fijar_nivel_int(nivel);
+}
+
+/* *
+ *Funcion que asigna a los hijos del proceso actual la id_padre ID_HUERFANO
+ * */
+static void tratar_padre(){
+    int  contador;
+    printk("-> TRATANDO HIJOS DEL PROCESO %i\n", p_proc_actual->id);
+    for(contador = 0; contador < MAX_PROC; contador++){
+        /* comprobamos que en el BCP hay un proceso */
+        if(tabla_procs[contador].estado != NO_USADA){
+            /*  comprobamos que es hijo del proceso actual */
+            if(tabla_procs[contador].id_padre == p_proc_actual->id)
+                tabla_procs[contador].id_padre = ID_HUERFANO;
+        }
+    }
 }
 
 /*
@@ -214,6 +229,9 @@ static void liberar_proceso(){
     /* detenemos interrupciones */
 	nivel=fijar_nivel_int(NIVEL_3); /*nivel 3 detiene todas */
 
+    /* modificamos la id del padre a huerfano */
+    tratar_padre();
+
 	liberar_imagen(p_proc_actual->info_mem); /* liberar mapa */
 
 	p_proc_actual->estado=TERMINADO;
@@ -229,15 +247,16 @@ static void liberar_proceso(){
 	printk("-> C.CONTEXTO POR FIN: de %d a %d\n",
 			p_proc_anterior->id, p_proc_actual->id);
 
-	liberar_pila(p_proc_anterior->pila);
-    p_proc_actual->estado=EJECUCION;
-	cambio_contexto(NULL, &(p_proc_actual->contexto_regs));
-    
     /* Cancelamos la replanificacion que pueda haber pendiente */
     replanificacion_pendiente = 0;
-    
+	liberar_pila(p_proc_anterior->pila);
+    p_proc_actual->estado=EJECUCION;
     /*  volvemos a poner interrupciones como antes */
 	fijar_nivel_int(nivel);
+    /*  realizamos el cambio de contexto */
+	cambio_contexto(NULL, &(p_proc_actual->contexto_regs));
+    /*  volvemos a poner interrupciones como antes */
+	//fijar_nivel_int(nivel);
     
     return; /* no debería llegar aqui */
 }
@@ -274,8 +293,6 @@ static void bloquear(lista_BCPs * lista){
     replanificacion_pendiente = 0;
     
     p_proc_actual->estado=EJECUCION;
-    cambio_contexto(&(p_proc_anterior->contexto_regs), 
-            &(p_proc_actual->contexto_regs));
 
     /* Mostramos lista listos */
     muestra_lista(&lista_listos);
@@ -283,6 +300,9 @@ static void bloquear(lista_BCPs * lista){
     muestra_lista(&lista_dormidos);
     /*  volvemos a poner interrupciones como antes */
 	fijar_nivel_int(nivel);
+    /*  realizamos el cambio de contexto */
+    cambio_contexto(&(p_proc_anterior->contexto_regs), 
+            &(p_proc_actual->contexto_regs));
 
     return; /* no debería llegar aqui */
 }
@@ -322,11 +342,14 @@ static void desbloquear(BCP * proc, lista_BCPs * lista){
  */
 static void replanificar(){
     BCP * p_proc_anterior, *p_proc_nuevo;
-
+    int nivel;
+    /* detenemos interrupciones */
+	nivel=fijar_nivel_int(NIVEL_3); /*nivel 3 detiene todas */
+    
     /* comprobamos que el planificador no nos retorna el mismo proceso
      * que el actual, si es asi no es necesario replanificar*/
     p_proc_nuevo = planificador();
-    //if(p_proc_nuevo == p_proc_actual) return;
+    if(p_proc_nuevo == p_proc_actual) return;
 
     /*  ponemos le proceso actual de EJECUCION a LISTO */
     p_proc_actual->estado=LISTO;
@@ -342,15 +365,16 @@ static void replanificar(){
     replanificacion_pendiente = 0;
 
     p_proc_actual->estado=EJECUCION;
-    cambio_contexto(&(p_proc_anterior->contexto_regs), 
-            &(p_proc_actual->contexto_regs));
     
     /* Mostramos lista listos */
     muestra_lista(&lista_listos);
     /* Mostramos lista dormidos */
     muestra_lista(&lista_dormidos);
-    
-    return;
+	fijar_nivel_int(nivel);
+    /* realizamos el cambio de contexto */
+    cambio_contexto(&(p_proc_anterior->contexto_regs), 
+            &(p_proc_actual->contexto_regs));
+    return /* no deberia llegar aqui */;
 }
 /*
  * Funcion auxiliar que acutaliza los ticks de los procesos dormidos

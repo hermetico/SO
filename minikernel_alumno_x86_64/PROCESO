@@ -3,11 +3,14 @@ pendiente - comprobar que cuando un proceso crea otro, al dividir su prioridad d
 listo - comprobar que no hacemos un cambio de contexto sobre el mismo proceso en el replanificador
 listo - comprobar que cuando un proceso se baja la prioridad ya no es el mas prioritario, antes de replanificar
 pendiente - preguntar si es mejor llamar a planificador antes de replanificar o no
+
 :Acciones a completar pr3 parte1
 listo - incluir id_padre en BCP
 listo - incluir la id del padre al crear el proceso o id huerfano si no tiene padre
 listo - definir tipo ID_HUERFANO, ID_INIT como tipos de id padre
 listo - definit getpid y sumar un proceso a la def numservicios
-pendiente - crear el servicio sis_get_ppid
-pendiente - registrar el servicio sis_getppid como get_ppid
+listo - crear el servicio sis_get_ppid
+listo - registrar el servicio sis_getppid como get_ppid
+listo - sustituir el id del padre por el ID_INIT cuando un proceso se queda ID_HUERFANO
 
+:Acciones a completar pr3 parte2

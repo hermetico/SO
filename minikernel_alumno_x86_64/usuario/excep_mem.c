@@ -21,6 +21,8 @@ int main(){
 	int i;
 	int *p=0;
 
+    i = get_ppid();
+    printf("Id del padre del proceso excep_mem %i\n", i);
 	if (crear_proceso("simplon")<0)
 		printf("Error creando simplon\n");
 

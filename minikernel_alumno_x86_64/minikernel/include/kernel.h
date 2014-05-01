@@ -99,6 +99,7 @@ int sis_escribir();
 int sis_get_pid();
 int sis_dormir();
 int sis_fijar_prio();
+int sis_get_ppid();
 
 /*
  * Variable global que contiene las rutinas que realizan cada llamada
@@ -108,7 +109,8 @@ servicio tabla_servicios[NSERVICIOS]={	{sis_crear_proceso},
 					{sis_escribir},
 					{sis_get_pid},
 					{sis_dormir},
-                    {sis_fijar_prio}};
+                    {sis_fijar_prio},
+                    {sis_get_ppid}};
 
 /*
  * Variable glogal que indica si hay una replanificacion pendiente
