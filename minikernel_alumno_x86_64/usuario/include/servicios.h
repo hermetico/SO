@@ -32,5 +32,6 @@ int escribir(char *texto, unsigned int longi);
 int get_pid();
 int dormir(unsigned int segundos);
 int fijar_prio(unsigned int prio);
+int get_ppid();
 #endif /* SERVICIOS_H */
 

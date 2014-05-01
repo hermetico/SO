@@ -53,4 +53,6 @@ int dormir(unsigned int segundos){
 int fijar_prio(unsigned int prio){
     return llamsis(FIJAR_PRIO, 1, (long)prio);
 }
-
+int get_ppid(){
+    return llamsis(GET_PPID, 0);
+}

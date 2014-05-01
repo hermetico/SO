@@ -641,6 +641,16 @@ int sis_get_pid(){
 }
 
 /*
+ * Tratamiento de llamada al sistema get_ppid. Muestra el id del 
+ * padre del proceso actual
+ */
+int sis_get_ppid(){
+    printk("-> A DINS DE SIS_GET_PPID\n");
+    return p_proc_actual->id_padre;
+
+}
+
+/*
  * Tratamiento de llamada al sistema dormir. Pone el proceso actual 
  * a dormir y pasa al siguiente proceso
  */

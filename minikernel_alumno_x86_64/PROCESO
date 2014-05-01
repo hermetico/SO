@@ -7,6 +7,7 @@ pendiente - preguntar si es mejor llamar a planificador antes de replanificar o 
 listo - incluir id_padre en BCP
 listo - incluir la id del padre al crear el proceso o id huerfano si no tiene padre
 listo - definir tipo ID_HUERFANO, ID_INIT como tipos de id padre
+listo - definit getpid y sumar un proceso a la def numservicios
 pendiente - crear el servicio sis_get_ppid
 pendiente - registrar el servicio sis_getppid como get_ppid
 
