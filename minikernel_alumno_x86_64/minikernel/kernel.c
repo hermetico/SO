@@ -155,7 +155,7 @@ static void espera_int(){
 /* *
  *Funcion que asigna a los hijos del proceso actual la id_padre ID_HUERFANO
  * */
-static void tratar_padre(){
+static void tratar_hijos(){
     int  contador;
     printk("-> TRATANDO HIJOS DEL PROCESO %i\n", p_proc_actual->id);
     for(contador = 0; contador < MAX_PROC; contador++){
@@ -229,8 +229,8 @@ static void liberar_proceso(){
     /* detenemos interrupciones */
 	nivel=fijar_nivel_int(NIVEL_3); /*nivel 3 detiene todas */
 
-    /* modificamos la id del padre a huerfano */
-    tratar_padre();
+    /* modificamos la id_padre de los hijos a huerfano */
+    tratar_hijos();
 
 	liberar_imagen(p_proc_actual->info_mem); /* liberar mapa */
 
@@ -606,6 +606,12 @@ static int crear_tarea(char *prog){
             }
             // asignamos la prioridad efectiva al hijo
             p_proc->prioridad_efectiva = p_proc_actual->prioridad_efectiva;
+
+            /*  comprobamos que el padre sigue siendo el mas prioritario */
+            if(p_proc_actual != planificador()){
+                replanificacion_pendiente = 1;
+                activar_int_SW();
+            }
         }else{
             //incluimod la id de huerfano
             p_proc->id_padre = ID_HUERFANO;

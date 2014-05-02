@@ -1,39 +1,71 @@
 init: comienza
 -> PROC 0: CREAR PROCESO
 -> PROC 0: CREAR PROCESO
+-> PROC 0: CREAR PROCESO
+-> PROC 0: CREAR PROCESO
+-> PROC 0: CREAR PROCESO
+-> PROC 0: CREAR PROCESO
+-> PROC 0: CREAR PROCESO
+-> PROC 0: CREAR PROCESO
+-> PROC 0: CREAR PROCESO
+-> PROC 0: CREAR PROCESO
+Error creando excep_mem
+-> PROC 0: CREAR PROCESO
 Error creando noexiste
 init: termina
 -> FIN PROCESO 0
 -> TRATANDO HIJOS DEL PROCESO 0
 -> C.CONTEXTO POR FIN: de 0 a 1
--> A DINS DE SIS_GET_PPID
-Id del padre del proceso excep_mem -1
--> PROC 1: CREAR PROCESO
-excep_mem: i 0
-excep_mem: i 1
-excep_mem: i 2
-excep_mem: i 3
-excep_mem: i 4
-excep_mem: i 5
-excep_mem: i 6
-excep_mem: i 7
-excep_mem: i 8
-excep_mem: i 9
-excep_mem: i 10
-excep_mem: i 11
-excep_mem: i 12
-excep_mem: i 13
-excep_mem: i 14
-excep_mem: i 15
-excep_mem: i 16
-excep_mem: i 17
-excep_mem: i 18
-excep_mem: i 19
--> EXCEPCION DE MEMORIA EN PROC 1
--> TRATANDO HIJOS DEL PROCESO 1
--> C.CONTEXTO POR FIN: de 1 a 0
 simplon: comienza
 -> A DINS DE SIS_GET_PPID
 PID del padre del simplon: -1
--> FIN PROCESO 0
--> TRATANDO HIJOS DEL PROCESO 0
+-> FIN PROCESO 1
+-> TRATANDO HIJOS DEL PROCESO 1
+-> C.CONTEXTO POR FIN: de 1 a 2
+simplon: comienza
+-> A DINS DE SIS_GET_PPID
+PID del padre del simplon: -1
+-> FIN PROCESO 2
+-> TRATANDO HIJOS DEL PROCESO 2
+-> C.CONTEXTO POR FIN: de 2 a 3
+simplon: comienza
+-> A DINS DE SIS_GET_PPID
+PID del padre del simplon: -1
+-> FIN PROCESO 3
+-> TRATANDO HIJOS DEL PROCESO 3
+-> C.CONTEXTO POR FIN: de 3 a 4
+simplon: comienza
+-> A DINS DE SIS_GET_PPID
+PID del padre del simplon: -1
+-> FIN PROCESO 4
+-> TRATANDO HIJOS DEL PROCESO 4
+-> C.CONTEXTO POR FIN: de 4 a 5
+simplon: comienza
+-> A DINS DE SIS_GET_PPID
+PID del padre del simplon: -1
+-> FIN PROCESO 5
+-> TRATANDO HIJOS DEL PROCESO 5
+-> C.CONTEXTO POR FIN: de 5 a 6
+simplon: comienza
+-> A DINS DE SIS_GET_PPID
+PID del padre del simplon: -1
+-> FIN PROCESO 6
+-> TRATANDO HIJOS DEL PROCESO 6
+-> C.CONTEXTO POR FIN: de 6 a 7
+simplon: comienza
+-> A DINS DE SIS_GET_PPID
+PID del padre del simplon: -1
+-> FIN PROCESO 7
+-> TRATANDO HIJOS DEL PROCESO 7
+-> C.CONTEXTO POR FIN: de 7 a 8
+simplon: comienza
+-> A DINS DE SIS_GET_PPID
+PID del padre del simplon: -1
+-> FIN PROCESO 8
+-> TRATANDO HIJOS DEL PROCESO 8
+-> C.CONTEXTO POR FIN: de 8 a 9
+simplon: comienza
+-> A DINS DE SIS_GET_PPID
+PID del padre del simplon: -1
+-> FIN PROCESO 9
+-> TRATANDO HIJOS DEL PROCESO 9

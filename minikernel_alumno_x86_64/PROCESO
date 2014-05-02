@@ -1,8 +1,8 @@
 :Acciones a completar previas a practica 3
-pendiente - comprobar que cuando un proceso crea otro, al dividir su prioridad deja de ser el mas prioritario
+listo - comprobar que cuando un proceso crea otro, al dividir su prioridad deja de ser el mas prioritario
 listo - comprobar que no hacemos un cambio de contexto sobre el mismo proceso en el replanificador
 listo - comprobar que cuando un proceso se baja la prioridad ya no es el mas prioritario, antes de replanificar
-pendiente - preguntar si es mejor llamar a planificador antes de replanificar o no
+listo - preguntar si es mejor llamar a planificador antes de replanificar o no
 
 :Acciones a completar pr3 parte1
 listo - incluir id_padre en BCP
