@@ -14,3 +14,14 @@ listo - registrar el servicio sis_getppid como get_ppid
 listo - sustituir el id del padre por el ID_INIT cuando un proceso se queda ID_HUERFANO
 
 :Acciones a completar pr3 parte2
+
+
+:Lista listos ordenada
+    funciones en las que se modifica la prioridad_efectiva del proceso actual
+    
+    tabla - reajustar_prioridades()
+    p_proc_actual - lista maxima_prioridad()
+    p_proc_actual, nuevo_proceso - crear_tarea()
+    p_proc_actual - sis_fijar_prio()
+    funciones en las que se inserta un proceso en lista_listos
+

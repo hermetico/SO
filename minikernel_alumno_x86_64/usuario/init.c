@@ -17,7 +17,7 @@
 int main(){
 
 	printf("init: comienza\n");
-/*
+
     fijar_prio(25);
     if (crear_proceso("dormilon")<0)
                printf("Error creando dormilon\n");
@@ -25,38 +25,20 @@ int main(){
     fijar_prio(30);
     if (crear_proceso("simplon")<0)
                 printf("Error creando simplon\n");
-*/
-	/* Este programa causa una excepción */
-//	if (crear_proceso("excep_arit")<0)
-//		printf("Error creando excep_arit\n");
-    
-    /* Este programa solicita que lo pongan a dormir */
-//	if (crear_proceso("dormilon")<0)
-//                printf("Error creando dormilon\n");
 
-    if (crear_proceso("simplon")<0)
-                printf("Error creando simplon\n");
-    if (crear_proceso("simplon")<0)
-                printf("Error creando simplon\n");
-    if (crear_proceso("simplon")<0)
-                printf("Error creando simplon\n");
-    if (crear_proceso("simplon")<0)
-                printf("Error creando simplon\n");
-    if (crear_proceso("simplon")<0)
-                printf("Error creando simplon\n");
-    if (crear_proceso("simplon")<0)
-                printf("Error creando simplon\n");
-    if (crear_proceso("simplon")<0)
-                printf("Error creando simplon\n");
-    if (crear_proceso("simplon")<0)
-                printf("Error creando simplon\n");
-    if (crear_proceso("simplon")<0)
-                printf("Error creando simplon\n");
+	/* Este programa causa una excepción */
+	if (crear_proceso("excep_arit")<0)
+		printf("Error creando excep_arit\n");
+    fijar_prio(10); 
+    /* Este programa solicita que lo pongan a dormir */
+	if (crear_proceso("dormilon")<0)
+                printf("Error creando dormilon\n");
+
 	/* Este programa crea otro proceso que ejecuta simplon a
 	   una excepción */
 	if (crear_proceso("excep_mem")<0)
 		printf("Error creando excep_mem\n");
-	
+	fijar_prio(50);
 	/* No existe: debe fallar */
 	if (crear_proceso("noexiste")<0)
 		printf("Error creando noexiste\n");

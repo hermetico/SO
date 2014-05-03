@@ -16,14 +16,14 @@
 #define TOT_ITER 1000000000 /* ponga las que considere oportuno */
 
 int main(){
-	int i;
+	int i, alert;
 
 	//for (i=0; i<TOT_ITER; i++)
 	//	printf("simplon: i %d\n", i);
 	printf("simplon: comienza\n");
     i = get_ppid();
 	printf("PID del padre del simplon: %d\n", i);
-/*    printf("Proceso largo en marcha\n");
+    printf("Proceso largo en marcha\n");
     alert = 0;
 	for( i = 0; i < TOT_ITER; i++){
         if(++alert == 100000000){
@@ -34,6 +34,6 @@ int main(){
         }
     }
     printf("simplon: termina\n");
-*/
+
 	return 0;
 }

@@ -65,6 +65,36 @@ static void insertar_ultimo(lista_BCPs *lista, BCP * proc){
 }
 
 /*
+ * Inserta un BCP de forma ordenada en la lista
+ * Ordena segun prioridad_efectiva de forma descendente
+ * Si hay procesos con la misma prioridad, se inserta el ultimo de ellos
+ */
+static void insertar_ordenado(lista_BCPs *lista, BCP *proc){
+    /*  comprobamos que la lista no este vacia */
+    if(lista->primero==NULL){
+        lista->primero = proc;
+        lista->ultimo = proc;
+        proc->siguiente = NULL;
+    }else if(lista->primero->prioridad_efectiva < proc->prioridad_efectiva ){
+        /*  el nuevo proceso ha de ir el primero */
+        proc->siguiente = lista->primero;
+        lista->primero = proc;
+    }else if(lista->ultimo->prioridad_efectiva >= proc->prioridad_efectiva ){
+        /* el nuevo proceso ha de ir el ultimo */
+        lista->ultimo->siguiente = proc;
+        lista->ultimo = proc;
+        proc->siguiente = NULL;
+    }else{ 
+        /* buscamos su posicion */
+        BCP *paux=lista->primero; //puntero auxiliar
+        while(paux->siguiente->prioridad_efectiva >= proc->prioridad_efectiva)paux = paux->siguiente;
+        /* en este punto paux tiene prio_e mayor o igual a proc y paux->siguiente tiene prio_e menor */
+        proc->siguiente = paux->siguiente;
+        paux->siguiente = proc;
+    }
+}
+
+/*
  * Elimina el primer BCP de la lista.
  */
 static void eliminar_primero(lista_BCPs *lista){
@@ -74,11 +104,12 @@ static void eliminar_primero(lista_BCPs *lista){
 	lista->primero=lista->primero->siguiente;
 }
 
+
 /*
  * Elimina un determinado BCP de la lista.
  */
 static void eliminar_elem(lista_BCPs *lista, BCP * proc){
-	BCP *paux=lista->primero;
+    BCP *paux=lista->primero;
 
 	if (paux==proc)
 		eliminar_primero(lista);
@@ -91,6 +122,18 @@ static void eliminar_elem(lista_BCPs *lista, BCP * proc){
 			paux->siguiente=paux->siguiente->siguiente;
 		}
 	}
+}
+
+/* 
+ * Extrae el proceso de la lista y lo vuelve a insertar
+ * de forma ordenada
+ */
+static void reordenar_elem(lista_BCPs *lista, BCP *proc){
+    int nivel;
+    nivel=fijar_nivel_int(NIVEL_3); /*nivel 3 detiene todas */
+    eliminar_elem(lista, proc); //eliminamos el elemento de la lista
+    insertar_ordenado(lista, proc); // lo insertamos ordenado
+    fijar_nivel_int(nivel);
 }
 
 /*
@@ -119,7 +162,7 @@ static void muestra_lista(lista_BCPs *lista){
             else if (paux->estado == BLOQUEADO) printk ("BLOQUEADO");
             printk("\n");
         }
-
+        printk("\tProceso id_padre %d {\n",paux->id_padre);
         printk("\tPrioridad: %d;\n",paux->prioridad);
         printk("\tPrioridad_E: %d;\n",paux->prioridad_efectiva);
         printk("}\n");
@@ -137,6 +180,18 @@ static void muestra_lista(lista_BCPs *lista){
  *	espera_int planificador
  */
 
+
+
+/* 
+ * Funcion que aplica una prioridad_efectiva a un proceso y lo reordena
+ */
+static void aplica_prioridad_efectiva(lista_BCPs *lista, BCP *proc, int prioridad){
+    /* comprobamos que la prioridad no sigue siendo la misma */
+    if(proc->prioridad_efectiva != prioridad){
+        proc->prioridad_efectiva = prioridad; //aplicamos la prioridad
+        reordenar_elem(lista, proc); // lo reordenamos
+    }
+}
 
 /*
  * Espera a que se produzca una interrupcion
@@ -173,48 +228,63 @@ static void tratar_hijos(){
  */
 static void reajustar_prioridades(){
     int  contador, prioridad;
-    int prioridad_e;
+    int prioridad_e, nueva_prio_e;;
     printk("NECESARIO REAJUSTE GLOBAL DE PRIORIDADES\n");
     for(contador = 0; contador < MAX_PROC; contador++){
         /* comprobamos que en el BCP hay un proceso */
         if(tabla_procs[contador].estado != NO_USADA){
+
             prioridad_e = tabla_procs[contador].prioridad_efectiva;
             prioridad = tabla_procs[contador].prioridad;
-            tabla_procs[contador].prioridad_efectiva = (prioridad_e / 2) + prioridad;
+            nueva_prio_e = ( prioridad_e/2 ) + prioridad;
+
+            if(tabla_procs[contador].estado == LISTO){
+                //si es un proceso que esta en lista listos, debemos mantenerla ordenada
+                aplica_prioridad_efectiva(&lista_listos, &tabla_procs[contador], nueva_prio_e);
+            }else{
+                tabla_procs[contador].prioridad_efectiva = (prioridad_e / 2) + prioridad;
+            }
         }
     }
 
 }
 
-/* 
- *Funcion que retorna el proceso con maxima prioridad
- */
-static BCP * maxima_prioridad(lista_BCPs *lista){
-    BCP * paux, * max_prio;
-    paux = lista->primero;
-    max_prio = paux;
-    /* recorremos la lista y nos quedamos con el proceso con max_prio */
-    while(paux->siguiente){
-        paux = paux->siguiente;
-        if(paux->prioridad_efectiva > max_prio->prioridad_efectiva) max_prio = paux;
-    }
-    /* si la maxima prioridad del proceso es 0, es necesario reajuste */
-    if(max_prio->prioridad_efectiva == 0){
-        reajustar_prioridades();
-        return maxima_prioridad(lista);
-    }
-
-    return max_prio;
-}
+//No necesario
+///* 
+// *Funcion que retorna el proceso con maxima prioridad
+// */
+//static BCP * maxima_prioridad(lista_BCPs *lista){
+//    BCP * paux, * max_prio;
+//    paux = lista->primero;
+//    max_prio = paux;
+//    /* recorremos la lista y nos quedamos con el proceso con max_prio */
+//    while(paux->siguiente){
+//        paux = paux->siguiente;
+//        if(paux->prioridad_efectiva > max_prio->prioridad_efectiva) max_prio = paux;
+//    }
+//    /* Esta parte de aqui pasa  decidirla el planificador */
+////    /* si la maxima prioridad del proceso es 0, es necesario reajuste */
+//    if(max_prio->prioridad_efectiva == 0){
+//        reajustar_prioridades();
+//        return maxima_prioridad(lista);
+//    }
+//
+//    return max_prio;
+//}
 
 /*
  * Función de planificacion que implementa un algoritmo FIFO.
  */
 static BCP * planificador(){
+    BCP *max_prio;
 	while (lista_listos.primero==NULL)
 		espera_int();		/* No hay nada que hacer */
-    /*  la plainificacion actual se base en la busqueda de maxima_prioridad */
-	return maxima_prioridad(&lista_listos);
+    /* Lista listos es una lista ordenada 
+     * Si la prioridad_efectiva del primero es 0,, reajustamos prioridades
+     */
+    if(lista_listos.primero->prioridad_efectiva == 0) reajustar_prioridades();
+    /* devolvemos el primero */
+    return lista_listos.primero;
 }
 
 /*
@@ -227,7 +297,7 @@ static void liberar_proceso(){
 	BCP * p_proc_anterior;
     int nivel;
     /* detenemos interrupciones */
-	nivel=fijar_nivel_int(NIVEL_3); /*nivel 3 detiene todas */
+    nivel=fijar_nivel_int(NIVEL_3); /*nivel 3 detiene todas */
 
     /* modificamos la id_padre de los hijos a huerfano */
     tratar_hijos();
@@ -251,12 +321,10 @@ static void liberar_proceso(){
     replanificacion_pendiente = 0;
 	liberar_pila(p_proc_anterior->pila);
     p_proc_actual->estado=EJECUCION;
-    /*  volvemos a poner interrupciones como antes */
-	fijar_nivel_int(nivel);
     /*  realizamos el cambio de contexto */
 	cambio_contexto(NULL, &(p_proc_actual->contexto_regs));
     /*  volvemos a poner interrupciones como antes */
-	//fijar_nivel_int(nivel);
+	fijar_nivel_int(nivel);
     
     return; /* no debería llegar aqui */
 }
@@ -298,11 +366,11 @@ static void bloquear(lista_BCPs * lista){
     muestra_lista(&lista_listos);
     /* Mostramos lista dormidos */
     muestra_lista(&lista_dormidos);
-    /*  volvemos a poner interrupciones como antes */
-	fijar_nivel_int(nivel);
     /*  realizamos el cambio de contexto */
     cambio_contexto(&(p_proc_anterior->contexto_regs), 
             &(p_proc_actual->contexto_regs));
+    /*  volvemos a poner interrupciones como antes */
+	fijar_nivel_int(nivel);
 
     return; /* no debería llegar aqui */
 }
@@ -320,7 +388,7 @@ static void desbloquear(BCP * proc, lista_BCPs * lista){
     proc->estado = LISTO;    
     nivel=fijar_nivel_int(NIVEL_3);
     eliminar_elem(lista, proc); /* lo eliminamos de la lista de bloqueados */
-    insertar_ultimo(&lista_listos, proc); /* lo insertamos como listo */
+    insertar_ordenado(&lista_listos, proc); /* lo insertamos como listo */
     fijar_nivel_int(nivel);
     
     /* si no hay una replanificacion pendiente, comprobamos si es necesaria */
@@ -444,14 +512,10 @@ static void ajustar_prioridad_actual(){
     /* Hay ocasiones que el proceso actual esta bloqueado y no hay ninguno listo */
     if(p_proc_actual->estado != EJECUCION ) return;
     //decrementamos la prio_efectiva del proceso actual
-    p_proc_actual->prioridad_efectiva -=1;
+    aplica_prioridad_efectiva(&lista_listos, p_proc_actual, p_proc_actual->prioridad_efectiva - 1);
     // si ha llegado a 0
     if(p_proc_actual->prioridad_efectiva == 0){
         printk("-> PROCESO %d AGOTA TIEMPO DE USO DE CPU\n",p_proc_actual->id);
-        /* ahora podemos comprobar si es necesario reajustar prioridades */
-        //  NO NECESARIO, se hace dentro de funcion maxima_prioridad() !
-        //if(comprobar_necesario_reajustar_prioridades())
-        //    reajustar_prioridades();
         /* ahora replanificamos siempre que el planificador nos de un proceso diferente*/
         if(p_proc_actual != planificador()){
             replanificacion_pendiente = 1;
@@ -602,7 +666,8 @@ static int crear_tarea(char *prog){
                 /* dividimos la prioridad del padre
                  * por que se repartira con el hijo 
                  */
-                p_proc_actual->prioridad_efectiva /=  2;
+                //p_proc_actual->prioridad_efectiva /=  2;
+                aplica_prioridad_efectiva(&lista_listos, p_proc_actual, p_proc_actual->prioridad_efectiva / 2);
             }
             // asignamos la prioridad efectiva al hijo
             p_proc->prioridad_efectiva = p_proc_actual->prioridad_efectiva;
@@ -625,9 +690,8 @@ static int crear_tarea(char *prog){
         /* detenemos interrupciones */
         nivel=fijar_nivel_int(NIVEL_3); /*nivel 3 detiene todas */
 		
-        /* lo inserta al final de cola de listos */
-		insertar_ultimo(&lista_listos, p_proc);
-        
+        /* lo insertamos ordenado en lista listos */
+		insertar_ordenado(&lista_listos, p_proc);
         /*  volvemos a poner interrupciones como antes */
         fijar_nivel_int(nivel);
 		
@@ -733,7 +797,7 @@ int sis_terminar_proceso(){
  */
 int sis_fijar_prio(){
     unsigned int prioridad, prioridad_anterior;
-    int prioridad_efectiva_anterior;
+    int prioridad_efectiva_anterior, prioridad_efectiva_resultante;
 
     /* Obtenemos la prioridad a aplicar */
     prioridad=(unsigned int)leer_registro(1);
@@ -743,24 +807,34 @@ int sis_fijar_prio(){
     if (prioridad > MAX_PRIO) return -1;
     
     printk("-> PROC %d, FIJANDO PRIORIDAD DE %d A %d\n",p_proc_actual->id, p_proc_actual->prioridad, prioridad);
-    
+   
+    //printk("Efectiva %i\n",p_proc_actual->prioridad_efectiva);
+
     /* nos guardamos la prioridad actual (base y efectiva) como la anterior */
     prioridad_anterior = p_proc_actual->prioridad;
     prioridad_efectiva_anterior = p_proc_actual->prioridad_efectiva;
-
+    prioridad_efectiva_resultante = p_proc_actual->prioridad_efectiva;
     p_proc_actual->prioridad = prioridad; /*  asignamos la prioridad base */
     /* comprobamos las condiciones para asignar una prio_efectiva u otra */
     if(prioridad >= prioridad_anterior){
+        //printk("Prioridad aumenta\n");
         /* la prio_e = prio_e_ant * (prio + prio_ant) /(2 prio_ant)*/
-        p_proc_actual->prioridad_efectiva *= ( (prioridad + prioridad_anterior)/(prioridad_anterior * 2) );
+        prioridad_efectiva_resultante *= ( (prioridad + prioridad_anterior)/(prioridad_anterior * 2) );
     }else{
+        //printk("Prioridad disminuye\n");
         /* La prio_e = prio_e_ant * (prio / prio_ant) evitando problemas con enteros*/
-        p_proc_actual->prioridad_efectiva *= (prioridad / (prioridad_anterior ));
+        prioridad_efectiva_resultante *= (prioridad / (prioridad_anterior ));
     }
-    
-    printk("-> PROC %d, FIJANDO PRIORIDAD_E DE %d A %d\n",p_proc_actual->id,
+
+    //printk("Efectiva resultante %i\n",prioridad_efectiva_resultante);
+
+    /*  aplicamos la nueva prioridad efectiva */
+    aplica_prioridad_efectiva(&lista_listos, p_proc_actual, prioridad_efectiva_resultante);
+    //printk("-> PROC %d, FIJANDO PRIORIDAD_E DE %d A %d\n",p_proc_actual->id,
             prioridad_efectiva_anterior, p_proc_actual->prioridad_efectiva);
-    
+
+    //printk("Efectiva aplicada %i\n",p_proc_actual->prioridad_efectiva);
+
     /* Mostramos lista listos */
     muestra_lista(&lista_listos);
     /* Mostramos lista dormidos */
@@ -769,7 +843,7 @@ int sis_fijar_prio(){
     /* comprobamos si se cumplen las condiciones para replanificar */
     if(p_proc_actual->prioridad_efectiva < prioridad_efectiva_anterior){
         /* comprobamos que no sigue siendo el mismo con la max prio */
-        if(p_proc_actual != maxima_prioridad(&lista_listos)){
+        if(p_proc_actual != planificador()){
             /* si la prioridad_anterior es mayor, hay que replanificar */
             if(!replanificacion_pendiente){ /* comprobamos que no haya ya una replanificacino pendiente */
                 replanificacion_pendiente = 1;
