@@ -238,7 +238,8 @@ static void reajustar_prioridades(){
             prioridad = tabla_procs[contador].prioridad;
             nueva_prio_e = ( prioridad_e/2 ) + prioridad;
 
-            if(tabla_procs[contador].estado == LISTO){
+            if(tabla_procs[contador].estado == LISTO ||
+                    tabla_procs[contador].estado == EJECUCION){
                 //si es un proceso que esta en lista listos, debemos mantenerla ordenada
                 aplica_prioridad_efectiva(&lista_listos, &tabla_procs[contador], nueva_prio_e);
             }else{
@@ -276,7 +277,7 @@ static void reajustar_prioridades(){
  * Función de planificacion que implementa un algoritmo FIFO.
  */
 static BCP * planificador(){
-    BCP *max_prio;
+    //BCP *max_prio;
 	while (lista_listos.primero==NULL)
 		espera_int();		/* No hay nada que hacer */
     /* Lista listos es una lista ordenada 
@@ -830,7 +831,7 @@ int sis_fijar_prio(){
 
     /*  aplicamos la nueva prioridad efectiva */
     aplica_prioridad_efectiva(&lista_listos, p_proc_actual, prioridad_efectiva_resultante);
-    //printk("-> PROC %d, FIJANDO PRIORIDAD_E DE %d A %d\n",p_proc_actual->id,
+    printk("-> PROC %d, FIJANDO PRIORIDAD_E DE %d A %d\n",p_proc_actual->id, 
             prioridad_efectiva_anterior, p_proc_actual->prioridad_efectiva);
 
     //printk("Efectiva aplicada %i\n",p_proc_actual->prioridad_efectiva);
