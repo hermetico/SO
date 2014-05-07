@@ -162,7 +162,7 @@ static void muestra_lista(lista_BCPs *lista){
             else if (paux->estado == BLOQUEADO) printk ("BLOQUEADO");
             printk("\n");
         }
-        printk("\tProceso id_padre %d {\n",paux->id_padre);
+        printk("\tId padre %d;\n",paux->id_padre);
         printk("\tPrioridad: %d;\n",paux->prioridad);
         printk("\tPrioridad_E: %d;\n",paux->prioridad_efectiva);
         printk("\tnTicks: %d;\n", paux->nticks);

@@ -34,10 +34,11 @@ int main(){
 //	if (crear_proceso("dormilon")<0)
 //                printf("Error creando dormilon\n");
 //
-//	/* Este programa crea otro proceso que ejecuta simplon a
-//	   una excepción */
-//	if (crear_proceso("excep_mem")<0)
-//		printf("Error creando excep_mem\n");
+	/* Este programa crea otro proceso que ejecuta simplon a
+	   una excepción */
+	if (crear_proceso("excep_mem")<0)
+		printf("Error creando excep_mem\n");
+
 //	fijar_prio(50);
 //	/* No existe: debe fallar */
 //	if (crear_proceso("noexiste")<0)

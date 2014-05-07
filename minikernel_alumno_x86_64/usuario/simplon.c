@@ -33,6 +33,16 @@ int main(){
             printf("Desperando simplon, proceso largo en marcha\n");
         }
     }
+	if (crear_proceso("dormilon")<0)
+		printf("Error creando dormilon\n");
+    
+	if (crear_proceso("dormilon")<0)
+		printf("Error creando dormilon\n");
+	
+    if (crear_proceso("dormilon")<0)
+		printf("Error creando dormilon\n");
+    
+    espera();
     printf("simplon: termina\n");
 
 	return 0;
