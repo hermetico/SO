@@ -33,5 +33,6 @@ int get_pid();
 int dormir(unsigned int segundos);
 int fijar_prio(unsigned int prio);
 int get_ppid();
+int espera();
 #endif /* SERVICIOS_H */
 

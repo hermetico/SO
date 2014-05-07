@@ -11,7 +11,7 @@
 
 #include "servicios.h"
 
-#define SEGUNDOS 2
+#define SEGUNDOS 0
 
 int main(){
     int i, counter;

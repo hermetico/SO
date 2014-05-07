@@ -39,6 +39,7 @@ typedef struct BCP_t {
         void * pila;			/* dir. inicial de la pila */
         int prioridad;      /*  Prioridad del proceso  */
         int prioridad_efectiva; /* prioridad efectiva del proceso */
+        int nfills;          /* numero de fills del proces */
 	BCPptr siguiente;		/* puntero al BCP siguiente */
 	void *info_mem;			/* descriptor del mapa de memoria */
 } BCP;
@@ -79,6 +80,12 @@ lista_BCPs lista_listos= {NULL, NULL};
  * Variable global que representa la cola de procesos dormidos
  */
 lista_BCPs lista_dormidos= {NULL, NULL};
+
+/*
+ * Variable global que representa la cola de procesos en espera
+ */
+lista_BCPs lista_espera= {NULL, NULL};
+
 /*
  *
  * Definición del tipo que corresponde con una entrada en la tabla de
@@ -100,7 +107,7 @@ int sis_get_pid();
 int sis_dormir();
 int sis_fijar_prio();
 int sis_get_ppid();
-
+int sis_espera();
 /*
  * Variable global que contiene las rutinas que realizan cada llamada
  */
@@ -110,7 +117,8 @@ servicio tabla_servicios[NSERVICIOS]={	{sis_crear_proceso},
 					{sis_get_pid},
 					{sis_dormir},
                     {sis_fijar_prio},
-                    {sis_get_ppid}};
+                    {sis_get_ppid},
+                    {sis_espera}};
 
 /*
  * Variable glogal que indica si hay una replanificacion pendiente

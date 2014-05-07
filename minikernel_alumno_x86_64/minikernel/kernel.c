@@ -165,6 +165,8 @@ static void muestra_lista(lista_BCPs *lista){
         printk("\tProceso id_padre %d {\n",paux->id_padre);
         printk("\tPrioridad: %d;\n",paux->prioridad);
         printk("\tPrioridad_E: %d;\n",paux->prioridad_efectiva);
+        printk("\tnTicks: %d;\n", paux->nticks);
+        printk("\tnHijos: %d:\n", paux->nfills);
         printk("}\n");
         paux = paux->siguiente;
     }
@@ -206,7 +208,6 @@ static void espera_int(){
 	halt();
 	fijar_nivel_int(nivel);
 }
-
 /* *
  *Funcion que asigna a los hijos del proceso actual la id_padre ID_HUERFANO
  * */
@@ -218,7 +219,7 @@ static void tratar_hijos(){
         if(tabla_procs[contador].estado != NO_USADA){
             /*  comprobamos que es hijo del proceso actual */
             if(tabla_procs[contador].id_padre == p_proc_actual->id)
-                tabla_procs[contador].id_padre = ID_HUERFANO;
+                tabla_procs[contador].id_padre = ID_INIT;
         }
     }
 }
@@ -288,47 +289,6 @@ static BCP * planificador(){
     return lista_listos.primero;
 }
 
-/*
- *
- * Funcion auxiliar que termina proceso actual liberando sus recursos.
- * Usada por llamada terminar_proceso y por rutinas que tratan excepciones
- *
- */
-static void liberar_proceso(){
-	BCP * p_proc_anterior;
-    int nivel;
-    /* detenemos interrupciones */
-    nivel=fijar_nivel_int(NIVEL_3); /*nivel 3 detiene todas */
-
-    /* modificamos la id_padre de los hijos a huerfano */
-    tratar_hijos();
-
-	liberar_imagen(p_proc_actual->info_mem); /* liberar mapa */
-
-	p_proc_actual->estado=TERMINADO;
-	//eliminar_primero(&lista_listos); /* proc. fuera de listos */
-	
-    eliminar_elem(&lista_listos, p_proc_actual); /* proc. fuera de listos */
-    p_proc_anterior=p_proc_actual;
-	p_proc_actual=planificador();
-
-	
-    /* Realizar cambio de contexto */
-    //muestra_lista(&lista_listos);
-	printk("-> C.CONTEXTO POR FIN: de %d a %d\n",
-			p_proc_anterior->id, p_proc_actual->id);
-
-    /* Cancelamos la replanificacion que pueda haber pendiente */
-    replanificacion_pendiente = 0;
-	liberar_pila(p_proc_anterior->pila);
-    p_proc_actual->estado=EJECUCION;
-    /*  realizamos el cambio de contexto */
-	cambio_contexto(NULL, &(p_proc_actual->contexto_regs));
-    /*  volvemos a poner interrupciones como antes */
-	fijar_nivel_int(nivel);
-    
-    return; /* no debería llegar aqui */
-}
 
 /*
  * Funcion auxiliar que pone un proceso en bloqueado
@@ -445,6 +405,28 @@ static void replanificar(){
             &(p_proc_actual->contexto_regs));
     return /* no deberia llegar aqui */;
 }
+/**
+ * Funcion que resta al padre el hijo que va a ser eliminado y lo 
+ * desbloquea en caso de que no tenga hijos pendientes
+ * 
+ */
+static void tratar_padre(){
+    BCP *padre;
+    padre = &tabla_procs[p_proc_actual->id_padre];
+    printk("-> TRATANDO PADRE (%i) DEL PROCESO %i\n",padre->id,
+            p_proc_actual->id);
+
+    //inicialmente solo restamos 1 al numero de hijos
+    padre->nfills -= 1;
+    // si no le quedan hijos pendientes
+    if(!padre->nfills && padre->estado == BLOQUEADO){
+        //aumentamos su prio efectiva
+        padre->prioridad_efectiva = ((float) padre->prioridad_efectiva )* 1.1;
+        desbloquear(padre, &lista_espera);
+    }
+
+    return;
+}
 /*
  * Funcion auxiliar que acutaliza los ticks de los procesos dormidos
  * cuando detecta que uno no tiene ticks pendientes lo envia a desbloquear
@@ -471,6 +453,53 @@ static void ajustar_dormidos(){
         }
     }
     return;
+}
+
+/*
+ *
+ * Funcion auxiliar que termina proceso actual liberando sus recursos.
+ * Usada por llamada terminar_proceso y por rutinas que tratan excepciones
+ *
+ */
+static void liberar_proceso(){
+	BCP * p_proc_anterior;
+    int nivel;
+    /* detenemos interrupciones */
+    nivel=fijar_nivel_int(NIVEL_3); /*nivel 3 detiene todas */
+
+    /* modificamos la id_padre de los hijos a huerfano */
+    if(p_proc_actual->nfills)
+        tratar_hijos();
+    
+    /* tratamos al padre */
+    if(p_proc_actual->id_padre != ID_HUERFANO)
+        tratar_padre();
+
+	liberar_imagen(p_proc_actual->info_mem); /* liberar mapa */
+
+	p_proc_actual->estado=TERMINADO;
+	//eliminar_primero(&lista_listos); /* proc. fuera de listos */
+	
+    eliminar_elem(&lista_listos, p_proc_actual); /* proc. fuera de listos */
+    p_proc_anterior=p_proc_actual;
+	p_proc_actual=planificador();
+
+	
+    /* Realizar cambio de contexto */
+    //muestra_lista(&lista_listos);
+	printk("-> C.CONTEXTO POR FIN: de %d a %d\n",
+			p_proc_anterior->id, p_proc_actual->id);
+
+    /* Cancelamos la replanificacion que pueda haber pendiente */
+    replanificacion_pendiente = 0;
+	liberar_pila(p_proc_anterior->pila);
+    p_proc_actual->estado=EJECUCION;
+    /*  realizamos el cambio de contexto */
+	cambio_contexto(NULL, &(p_proc_actual->contexto_regs));
+    /*  volvemos a poner interrupciones como antes */
+	fijar_nivel_int(nivel);
+    
+    return; /* no debería llegar aqui */
 }
 
 ///* 
@@ -653,10 +682,13 @@ static int crear_tarea(char *prog){
 			pc_inicial,
 			&(p_proc->contexto_regs));
 		p_proc->id=proc;
-        p_proc->nticks = 0; /* inicializamos los ticks a 0*/
+        p_proc->nticks = 0; /* inicializamos los ticks a 0 */
+        p_proc->nfills = 0; /* inicializamos los hijos a 0 */
 		p_proc->estado=LISTO;
         /* si hay proceso actual es el padre del nuevo */
         if (p_proc_actual){
+            //aumentamos en 1 el numero de hijos
+            p_proc_actual->nfills += 1;
             // incluimos la id del padre
             p_proc->id_padre = p_proc_actual->id;
             // la prioridad base se mantiene
@@ -668,7 +700,7 @@ static int crear_tarea(char *prog){
                  * por que se repartira con el hijo 
                  */
                 //p_proc_actual->prioridad_efectiva /=  2;
-                aplica_prioridad_efectiva(&lista_listos, p_proc_actual, p_proc_actual->prioridad_efectiva / 2);
+                aplica_prioridad_efectiva(&lista_listos, p_proc_actual, p_proc_actual->prioridad_efectiva / 2.0);
             }
             // asignamos la prioridad efectiva al hijo
             p_proc->prioridad_efectiva = p_proc_actual->prioridad_efectiva;
@@ -753,6 +785,10 @@ int sis_dormir(){
 
     unsigned int segundos;
     segundos=(unsigned int)leer_registro(1);
+    // comprobamos que sean segundos  > que 0
+    if (segundos <= 0) return 0;
+
+
     printk("-> PROC %d A DORMIR %d SEGUNDOS\n",p_proc_actual->id, segundos);
     
     /* insertamos el numero de ticks */
@@ -786,8 +822,8 @@ int sis_escribir()
 int sis_terminar_proceso(){
 
 	printk("-> FIN PROCESO %d\n", p_proc_actual->id);
-
-	liberar_proceso();
+	
+    liberar_proceso();
 
         return 0; /* no debería llegar aqui */
 }
@@ -820,11 +856,11 @@ int sis_fijar_prio(){
     if(prioridad >= prioridad_anterior){
         //printk("Prioridad aumenta\n");
         /* la prio_e = prio_e_ant * (prio + prio_ant) /(2 prio_ant)*/
-        prioridad_efectiva_resultante *= ( (prioridad + prioridad_anterior)/(prioridad_anterior * 2) );
+        prioridad_efectiva_resultante *= ( (prioridad + prioridad_anterior)/(prioridad_anterior * 2.0) );
     }else{
         //printk("Prioridad disminuye\n");
         /* La prio_e = prio_e_ant * (prio / prio_ant) evitando problemas con enteros*/
-        prioridad_efectiva_resultante *= (prioridad / (prioridad_anterior ));
+        prioridad_efectiva_resultante *= (prioridad / (prioridad_anterior * 1.0 ));
     }
 
     //printk("Efectiva resultante %i\n",prioridad_efectiva_resultante);
@@ -852,6 +888,19 @@ int sis_fijar_prio(){
             }
         }
     }
+    return 0;
+}
+
+/**
+ *
+ *
+ */
+
+int sis_espera(){
+    /* si no tiene hijos */
+    if(!p_proc_actual->nfills) return -1;
+    printk("-> PROC %i ESPERA A SUS HIJOS\n", p_proc_actual->id);
+    bloquear(&lista_espera);/* mandamos al proc a lista_espera */
     return 0;
 }
 

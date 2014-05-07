@@ -56,3 +56,6 @@ int fijar_prio(unsigned int prio){
 int get_ppid(){
     return llamsis(GET_PPID, 0);
 }
+int espera(){
+    return llamsis(ESPERA, 0);
+}
