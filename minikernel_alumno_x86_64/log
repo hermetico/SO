@@ -127,6 +127,19 @@ Proceso id 2 {
 }
 == FIN LISTA
 
+
+== LISTA DE PROCESOS BLOQUEADOS
+
+Proceso id 0 {
+	Estado: BLOQUEADO
+	Id padre -1;
+	Prioridad: 30;
+	Prioridad_E: 4;
+	nTicks: 0;
+	nHijos: 1:
+}
+== FIN LISTA
+
 simplon: comienza
 -> A DINS DE SIS_GET_PPID
 PID del padre del simplon: 0
@@ -163,6 +176,19 @@ Proceso id 3 {
 	Prioridad_E: 1;
 	nTicks: 0;
 	nHijos: 0:
+}
+== FIN LISTA
+
+
+== LISTA DE PROCESOS BLOQUEADOS
+
+Proceso id 0 {
+	Estado: BLOQUEADO
+	Id padre -1;
+	Prioridad: 30;
+	Prioridad_E: 4;
+	nTicks: 0;
+	nHijos: 1:
 }
 == FIN LISTA
 
@@ -236,6 +262,19 @@ Proceso id 1 {
 	Prioridad_E: 0;
 	nTicks: 0;
 	nHijos: 0:
+}
+== FIN LISTA
+
+
+== LISTA DE PROCESOS BLOQUEADOS
+
+Proceso id 0 {
+	Estado: BLOQUEADO
+	Id padre -1;
+	Prioridad: 30;
+	Prioridad_E: 4;
+	nTicks: 0;
+	nHijos: 1:
 }
 == FIN LISTA
 

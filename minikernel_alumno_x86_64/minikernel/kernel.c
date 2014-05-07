@@ -327,6 +327,8 @@ static void bloquear(lista_BCPs * lista){
     muestra_lista(&lista_listos);
     /* Mostramos lista dormidos */
     muestra_lista(&lista_dormidos);
+    /* Mostramos lista espera */
+    muestra_lista(&lista_espera);
     /*  realizamos el cambio de contexto */
     cambio_contexto(&(p_proc_anterior->contexto_regs), 
             &(p_proc_actual->contexto_regs));
@@ -399,6 +401,8 @@ static void replanificar(){
     muestra_lista(&lista_listos);
     /* Mostramos lista dormidos */
     muestra_lista(&lista_dormidos);
+    /* Mostramos lista espera */
+    muestra_lista(&lista_espera);
 	fijar_nivel_int(nivel);
     /* realizamos el cambio de contexto */
     cambio_contexto(&(p_proc_anterior->contexto_regs), 
