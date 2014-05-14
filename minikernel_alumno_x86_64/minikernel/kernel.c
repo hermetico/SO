@@ -137,6 +137,27 @@ static void reordenar_elem(lista_BCPs *lista, BCP *proc){
 }
 
 /*
+ * Devuelve si un proceso esta en una lista
+ */
+static int in_lista(BCP *proc, lista_BCPs * lista){
+    int nivel;
+    BCP *paux=lista->primero;
+    if(!paux) return 0;
+    nivel=fijar_nivel_int(NIVEL_3); /*nivel 3 detiene todas */
+    // buscamos paux coincide con proc
+    while(paux){
+        if(paux == proc){
+            fijar_nivel_int(nivel);
+            return 1;
+        }
+        paux = paux->siguiente;
+    }
+    
+    fijar_nivel_int(nivel);
+    return 0;
+}
+
+/*
  * Funcion auxiliar que muestra los procesos de una lista con sus datos mas relevantes 
  */
 static void muestra_lista(lista_BCPs *lista){
@@ -209,7 +230,8 @@ static void espera_int(){
 	fijar_nivel_int(nivel);
 }
 /* *
- *Funcion que asigna a los hijos del proceso actual la id_padre ID_HUERFANO
+ * Funcion que asigna a los hijos del proceso actual la id_padre ID_INIT cuando su
+ * padre finaliza
  * */
 static void tratar_hijos(){
     int  contador;
@@ -218,8 +240,15 @@ static void tratar_hijos(){
         /* comprobamos que en el BCP hay un proceso */
         if(tabla_procs[contador].estado != NO_USADA){
             /*  comprobamos que es hijo del proceso actual */
-            if(tabla_procs[contador].id_padre == p_proc_actual->id)
+            if(tabla_procs[contador].id_padre == p_proc_actual->id){
+                /* le asignamos la id del init, y aumentamos los hijos del init */
+                //printk("ANTES\n");
+                //muestra_lista(&lista_espera);
                 tabla_procs[contador].id_padre = ID_INIT;
+                tabla_procs[ID_INIT].nfills += 1;
+                //printk("DESPUES\n");
+                //muestra_lista(&lista_espera);
+            }
         }
     }
 }
@@ -251,28 +280,6 @@ static void reajustar_prioridades(){
 
 }
 
-//No necesario
-///* 
-// *Funcion que retorna el proceso con maxima prioridad
-// */
-//static BCP * maxima_prioridad(lista_BCPs *lista){
-//    BCP * paux, * max_prio;
-//    paux = lista->primero;
-//    max_prio = paux;
-//    /* recorremos la lista y nos quedamos con el proceso con max_prio */
-//    while(paux->siguiente){
-//        paux = paux->siguiente;
-//        if(paux->prioridad_efectiva > max_prio->prioridad_efectiva) max_prio = paux;
-//    }
-//    /* Esta parte de aqui pasa  decidirla el planificador */
-////    /* si la maxima prioridad del proceso es 0, es necesario reajuste */
-//    if(max_prio->prioridad_efectiva == 0){
-//        reajustar_prioridades();
-//        return maxima_prioridad(lista);
-//    }
-//
-//    return max_prio;
-//}
 
 /*
  * Función de planificacion que implementa un algoritmo FIFO.
@@ -327,6 +334,8 @@ static void bloquear(lista_BCPs * lista){
     muestra_lista(&lista_listos);
     /* Mostramos lista dormidos */
     muestra_lista(&lista_dormidos);
+    /* Mostramos lista bloqueados */
+    muestra_lista(&lista_espera);
     /*  realizamos el cambio de contexto */
     cambio_contexto(&(p_proc_anterior->contexto_regs), 
             &(p_proc_actual->contexto_regs));
@@ -399,6 +408,8 @@ static void replanificar(){
     muestra_lista(&lista_listos);
     /* Mostramos lista dormidos */
     muestra_lista(&lista_dormidos);
+    /* Mostramos lista bloqueados */
+    muestra_lista(&lista_espera);
 	fijar_nivel_int(nivel);
     /* realizamos el cambio de contexto */
     cambio_contexto(&(p_proc_anterior->contexto_regs), 
@@ -412,14 +423,17 @@ static void replanificar(){
  */
 static void tratar_padre(){
     BCP *padre;
+    // nos aseguramos que el proceso no sea huerfano
+    if(p_proc_actual->id_padre == ID_HUERFANO) return;
+
     padre = &tabla_procs[p_proc_actual->id_padre];
     printk("-> TRATANDO PADRE (%i) DEL PROCESO %i\n",padre->id,
             p_proc_actual->id);
 
     //inicialmente solo restamos 1 al numero de hijos
     padre->nfills -= 1;
-    // si no le quedan hijos pendientes
-    if(!padre->nfills && padre->estado == BLOQUEADO){
+    // si no le quedan hijos pendientes y esta en espera
+    if(!padre->nfills && in_lista(padre, &lista_espera)){
         //aumentamos su prio efectiva
         padre->prioridad_efectiva = ((float) padre->prioridad_efectiva )* 1.1;
         desbloquear(padre, &lista_espera);
@@ -467,13 +481,11 @@ static void liberar_proceso(){
     /* detenemos interrupciones */
     nivel=fijar_nivel_int(NIVEL_3); /*nivel 3 detiene todas */
 
-    /* modificamos la id_padre de los hijos a huerfano */
-    if(p_proc_actual->nfills)
-        tratar_hijos();
+    /* modificamos la id_padre de los hijos a init si es que tiene*/
+    if(p_proc_actual->nfills) tratar_hijos();
     
-    /* tratamos al padre */
-    if(p_proc_actual->id_padre != ID_HUERFANO)
-        tratar_padre();
+    /* tratamos al padre siempre que el proceso actual no sea el init*/
+    if(p_proc_actual->id != ID_INIT) tratar_padre();
 
 	liberar_imagen(p_proc_actual->info_mem); /* liberar mapa */
 
@@ -876,6 +888,8 @@ int sis_fijar_prio(){
     muestra_lista(&lista_listos);
     /* Mostramos lista dormidos */
     muestra_lista(&lista_dormidos);
+    /* Mostramos lista bloqueados */
+    muestra_lista(&lista_espera);
 
     /* comprobamos si se cumplen las condiciones para replanificar */
     if(p_proc_actual->prioridad_efectiva < prioridad_efectiva_anterior){

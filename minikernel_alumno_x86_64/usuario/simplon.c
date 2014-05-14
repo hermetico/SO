@@ -43,6 +43,15 @@ int main(){
 		printf("Error creando dormilon\n");
     
     espera();
+
+	if (crear_proceso("dormilon")<0)
+		printf("Error creando dormilon\n");
+    
+	if (crear_proceso("dormilon")<0)
+		printf("Error creando dormilon\n");
+	
+    if (crear_proceso("dormilon")<0)
+		printf("Error creando dormilon\n");
     printf("simplon: termina\n");
 
 	return 0;

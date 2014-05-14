@@ -18,14 +18,13 @@ int main(){
 
 	printf("init: comienza\n");
 
-    fijar_prio(25);
-    if (crear_proceso("dormilon")<0)
-               printf("Error creando dormilon\n");
-
-    fijar_prio(30);
-    if (crear_proceso("simplon")<0)
-                printf("Error creando simplon\n");
-    espera();
+//    fijar_prio(25);
+//    if (crear_proceso("dormilon")<0)
+//               printf("Error creando dormilon\n");
+//
+//    fijar_prio(30);
+//    if (crear_proceso("simplon")<0)
+//                printf("Error creando simplon\n");
 //	/* Este programa causa una excepción */
 //	if (crear_proceso("excep_arit")<0)
 //		printf("Error creando excep_arit\n");
@@ -44,6 +43,7 @@ int main(){
 //	if (crear_proceso("noexiste")<0)
 //		printf("Error creando noexiste\n");
 //
+    espera();
     printf("init: termina\n");
 	return 0; 
 }
