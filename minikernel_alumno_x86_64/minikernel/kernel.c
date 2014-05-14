@@ -334,11 +334,7 @@ static void bloquear(lista_BCPs * lista){
     muestra_lista(&lista_listos);
     /* Mostramos lista dormidos */
     muestra_lista(&lista_dormidos);
-<<<<<<< HEAD
-    /* Mostramos lista bloqueados */
-=======
     /* Mostramos lista espera */
->>>>>>> 55f82d698b286b6a4754e374bb6b7e0c84cd91c3
     muestra_lista(&lista_espera);
     /*  realizamos el cambio de contexto */
     cambio_contexto(&(p_proc_anterior->contexto_regs), 
@@ -412,11 +408,7 @@ static void replanificar(){
     muestra_lista(&lista_listos);
     /* Mostramos lista dormidos */
     muestra_lista(&lista_dormidos);
-<<<<<<< HEAD
-    /* Mostramos lista bloqueados */
-=======
     /* Mostramos lista espera */
->>>>>>> 55f82d698b286b6a4754e374bb6b7e0c84cd91c3
     muestra_lista(&lista_espera);
 	fijar_nivel_int(nivel);
     /* realizamos el cambio de contexto */
@@ -522,35 +514,6 @@ static void liberar_proceso(){
     return; /* no debería llegar aqui */
 }
 
-///* 
-// * Funcio que comprueba la necesidad de reajustar la prioridad de todos los procesos
-// * con la condicion de que todos los listos tengan prioridad efectiva <= 0
-// * */
-//static int comprobar_necesario_reajustar_prioridades(){
-//    BCP * paux;
-//    int nivel, reajustar_todos;
-//
-//    printk("-> COMPROBACION DE REAJUSTE GLOBAL DE PROCESOS,");
-//    reajustar_todos = 1; /* true por defecto */
-//
-//    /* detenemos interrupciones */
-//    nivel=fijar_nivel_int(NIVEL_3); /*nivel 3 detiene todas */
-//    /* recorremos los procesos listos */
-//    paux = lista_listos.primero;
-//    while(paux){
-//        if( paux->prioridad_efectiva > 0 ){
-//            printk("RESULTADO : REAJUSTE NO NECESARIO\n");
-//            reajustar_todos = 0;
-//            break;
-//        }
-//        paux = paux->siguiente;
-//    }
-//    /* activamos las interrupciones */
-//    fijar_nivel_int(nivel);
-//
-//    return reajustar_todos;
-//
-//}
 
 
 /*
