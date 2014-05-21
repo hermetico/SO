@@ -418,7 +418,7 @@ static void replanificar(){
 }
 /**
  * Funcion que resta al padre el hijo que va a ser eliminado y lo 
- * desbloquea en caso de que no tenga hijos pendientes
+ * desbloquea en caso de que no tenga hijos pendientes y este en lista espera
  * 
  */
 static void tratar_padre(){
@@ -432,11 +432,15 @@ static void tratar_padre(){
 
     //inicialmente solo restamos 1 al numero de hijos
     padre->nfills -= 1;
-    // si no le quedan hijos pendientes y esta en espera
-    if(!padre->nfills && in_lista(padre, &lista_espera)){
-        //aumentamos su prio efectiva
-        padre->prioridad_efectiva = ((float) padre->prioridad_efectiva )* 1.1;
-        desbloquear(padre, &lista_espera);
+    
+    // primero comprobamos que el padre ya no tenga hijos y que este bloqueado
+    if(!padre->nfills && padre->estado==BLOQUEADO){
+        // comprobamos si el padre esta en lista espera
+        if(in_lista(padre, &lista_espera)){
+            //aumentamos su prio efectiva
+            padre->prioridad_efectiva = ((float) padre->prioridad_efectiva )* 1.1;
+            desbloquear(padre, &lista_espera);
+        }
     }
 
     return;
